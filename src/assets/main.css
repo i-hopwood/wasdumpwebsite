@@ -1,0 +1,108 @@
+/* Global Theme Overrides based on WASDump aesthetic */
+:root {
+  --was-bg-dark: #0f1521;
+  --was-bg-card: #1c2638;
+  --was-primary: #f5c242; /* Retro Gold/Orange */
+  --was-secondary: #00bcd4; /* Retro Cyan */
+  --was-text: #e0e6ed;
+  --was-text-muted: #94a3b8;
+  --was-border: #2d3b55;
+  
+  /* Bootstrap Overrides */
+  --bs-body-bg: var(--was-bg-dark);
+  --bs-body-color: var(--was-text);
+  --bs-primary: var(--was-primary);
+  --bs-secondary: var(--was-secondary);
+  --bs-link-color: var(--was-secondary);
+  --bs-link-hover-color: var(--was-primary);
+}
+
+html, body {
+  background-color: var(--was-bg-dark) !important;
+  color: var(--was-text) !important;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  min-height: 100vh;
+}
+
+#app {
+  background-color: var(--was-bg-dark);
+  min-height: 100vh;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: var(--was-primary);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* Card Styling Unification */
+.card {
+  background-color: var(--was-bg-card);
+  border: 1px solid var(--was-border);
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+}
+
+.card-header {
+  background-color: rgba(0, 0, 0, 0.2) !important;
+  border-bottom: 1px solid var(--was-border);
+  color: var(--was-primary) !important;
+  font-weight: bold;
+}
+
+.card-title {
+  color: var(--was-text);
+}
+
+.card-text {
+  color: var(--was-text-muted);
+}
+
+.text-muted {
+  color: var(--was-text-muted) !important;
+}
+
+/* Navbar overrides */
+.navbar {
+  background-color: var(--was-bg-card) !important;
+  border-bottom: 2px solid var(--was-border);
+}
+
+.navbar-brand, .nav-link {
+  color: var(--was-text) !important;
+}
+
+.nav-link:hover, .nav-link.active {
+  color: var(--was-primary) !important;
+}
+
+/* Table overrides */
+.table {
+  color: var(--was-text);
+  --bs-table-bg: transparent;
+  --bs-table-color: var(--was-text);
+  --bs-table-border-color: var(--was-border);
+}
+
+.table-striped > tbody > tr:nth-of-type(odd) > * {
+  --bs-table-accent-bg: rgba(255, 255, 255, 0.05);
+  color: var(--was-text);
+}
+
+hr {
+  border-color: var(--was-border);
+  opacity: 1;
+}
+
+/* Section spacing */
+section {
+  padding-top: 60px; /* Offset for sticky header if needed, or just breathing room */
+  margin-bottom: 60px;
+}
+
+/* Scroll margin for anchor links */
+.section-anchor {
+  scroll-margin-top: 100px;
+}
+
