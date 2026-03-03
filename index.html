@@ -1,14 +1,82 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en" data-bs-theme="dark">
   <head>
-    <meta charset="UTF-8">
-    <link rel="icon" href="/favicon.ico">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WASDump</title>
+    <meta charset="UTF-8" />
+    <link rel="icon" href="/favicon.ico" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+    />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Primary Meta Tags -->
+    <title>WASDump - Retro Gaming & Variety Twitch/YouTube Community</title>
+    <meta name="title" content="WASDump - Retro Gaming & Variety Twitch/YouTube Community" />
+    <meta
+      name="description"
+      content="Welcome to the official WASDump community! Catch up on the latest Twitch VODs, check the stream schedule, watch retro races, and join our vibrant gaming community on Discord and YouTube."
+    />
+    <meta
+      name="keywords"
+      content="WASDump, Twitch, YouTube, Streamer, Retro Gaming, Racing, Variety Streamer, VODs, Schedule, Community, Gaming"
+    />
+    <meta name="robots" content="index, follow" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="language" content="English" />
+    <link rel="canonical" href="https://www.wasdump.com/" />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://www.wasdump.com/" />
+    <meta property="og:title" content="WASDump - Retro Gaming & Variety Twitch/YouTube Community" />
+    <meta
+      property="og:description"
+      content="Welcome to the official WASDump community! Catch up on the latest Twitch VODs, check the stream schedule, watch retro races, and join our vibrant gaming community on Discord and YouTube."
+    />
+    <meta property="og:image" content="https://www.wasdump.com/android-chrome-512x512.png" />
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content="https://www.wasdump.com/" />
+    <meta
+      property="twitter:title"
+      content="WASDump - Retro Gaming & Variety Twitch/YouTube Community"
+    />
+    <meta
+      property="twitter:description"
+      content="Welcome to the official WASDump community! Catch up on the latest Twitch VODs, check the stream schedule, watch retro races, and join our vibrant gaming community on Discord and YouTube."
+    />
+    <meta property="twitter:image" content="https://www.wasdump.com/android-chrome-512x512.png" />
+
+    <!-- Structured Data (JSON-LD) -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "WASDump",
+        "url": "https://www.wasdump.com/",
+        "potentialAction": {
+          "@type": "SearchAction",
+          "target": "https://www.wasdump.com/?q={search_term_string}",
+          "query-input": "required name=search_term_string"
+        },
+        "description": "Official community hub for WASDump Twitch & YouTube content."
+      }
+    </script>
   </head>
   <body>
     <div id="app"></div>
     <script type="module" src="/src/main.js"></script>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-NFB8TJ9TKV"></script>
+    <script>
+      window.dataLayer = window.dataLayer || []
+      function gtag() {
+        dataLayer.push(arguments)
+      }
+      gtag('js', new Date())
+
+      gtag('config', 'G-NFB8TJ9TKV')
+    </script>
   </body>
 </html>
