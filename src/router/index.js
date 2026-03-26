@@ -9,7 +9,11 @@ const router = createRouter({
       name: 'home',
       component: HomeView,
     },
-   
+    {
+      path: '/boss-tracker',
+      name: 'BossTracker',
+      component: () => import('@/views/BossTrackerView.vue')
+    },
   ],
 })
 
