@@ -29,17 +29,17 @@ export default {
     return {
       scheduleItems: [
         {
-          name: 'Tuesday',
+          name: 'Comming Soon',
           dayIndex: 2,
-          game: 'Pass and Play',
+          game: 'Baldur\'s Pass',
           time: '8:00 PM - 9:30 PM CST'
         },
-        {
-          name: 'Thursday',
-          dayIndex: 4,
-          game: 'Pass and Play',
-          time: '8:45 PM - 10:15 PM CST'
-        },
+        // {
+        //   name: 'Thursday',
+        //   dayIndex: 4,
+        //   game: 'Pass and Play',
+        //   time: '8:45 PM - 10:15 PM CST'
+        // },
         {
           name: 'Sunday',
           dayIndex: 0,
@@ -68,6 +68,7 @@ export default {
 .card {
   transition: transform 0.2s;
 }
+
 .card:hover {
   transform: translateY(-5px);
 }

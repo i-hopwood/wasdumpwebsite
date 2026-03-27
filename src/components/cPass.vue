@@ -28,9 +28,7 @@
 
         <div class="card bg-black bg-opacity-25 border-secondary">
           <div class="card-body position-relative">
-            <i
-              class="bi bi-quote position-absolute top-0 start-0 ms-2 mt-1 fs-1 text-muted opacity-25"
-            ></i>
+            <i class="bi bi-quote position-absolute top-0 start-0 ms-2 mt-1 fs-1 text-muted opacity-25"></i>
             <h5 class="card-title h6 text-uppercase text-warning mb-3 ms-4">Handoff Report</h5>
             <p class="card-text fst-italic ms-4 lead">{{ passData.lastHandOffReport }}</p>
           </div>
