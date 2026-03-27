@@ -21,13 +21,29 @@
           <li class="nav-item">
             <a class="nav-link" href="#RecentVideos">Recent Videos</a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#PassAndPlay">Pass and Play</a>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Pass and Play
+            </a>
+            <ul class="dropdown-menu dropdown-menu-dark">
+              <li>
+                <a class="dropdown-item" href="#PassAndPlay">
+                  <i class="bi bi-controller me-2"></i>Pass and Play
+                </a>
+              </li>
+              <li>
+                <hr class="dropdown-divider" />
+              </li>
+              <li>
+                <RouterLink class="dropdown-item" :to="{ name: 'BossTracker' }">
+                  <i class="bi bi-trophy me-2"></i>Baldur's Pass Boss Tracker
+                </RouterLink>
+              </li>
+            </ul>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="#RetroRaces">Retro Races</a>
           </li>
-
         </ul>
         <div class="d-flex align-items-center">
           <a href="https://www.youtube.com/@WASDump" target="_blank" class="nav-link text-danger fs-4 me-3"
