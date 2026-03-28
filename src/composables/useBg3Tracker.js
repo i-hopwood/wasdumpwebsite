@@ -1,9 +1,10 @@
 import { ref, computed } from 'vue'
 import { BOSSES } from '@/data/bg3Bosses.js'
 
-const slain = ref(new Set())
-const missed = ref(new Set())
-const loaded = ref(false)
+const slain   = ref(new Set())
+const missed  = ref(new Set())
+const details = ref({}) // { [bossId]: { player, date } }
+const loaded  = ref(false)
 
 export function useBg3Tracker() {
   const isDev = import.meta.env.DEV
@@ -15,12 +16,14 @@ export function useBg3Tracker() {
       const res = await fetch(url)
       if (!res.ok) throw new Error(`HTTP ${res.status}`)
       const data = await res.json()
-      slain.value = new Set(data.slain ?? [])
-      missed.value = new Set(data.missed ?? [])
+      slain.value   = new Set(data.slain   ?? [])
+      missed.value  = new Set(data.missed  ?? [])
+      details.value = data.details ?? {}
     } catch (e) {
       console.warn('BG3 Tracker: could not load save file', e)
-      slain.value = new Set()
-      missed.value = new Set()
+      slain.value   = new Set()
+      missed.value  = new Set()
+      details.value = {}
     }
     loaded.value = true
   }
@@ -32,8 +35,9 @@ export function useBg3Tracker() {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          slain: [...slain.value],
-          missed: [...missed.value]
+          slain:   [...slain.value],
+          missed:  [...missed.value],
+          details: details.value,
         })
       })
     } catch (e) {
@@ -41,40 +45,51 @@ export function useBg3Tracker() {
     }
   }
 
-  // Cycles: unmarked → slain → missed → unmarked
-  function cycleState(id) {
+  // Set state from modal — 'slain' | 'missed' | 'unmarked'
+  function setState(id, state) {
     if (!isDev) return
-    if (slain.value.has(id)) {
-      // slain → missed
-      const nextSlain = new Set(slain.value)
-      nextSlain.delete(id)
-      slain.value = nextSlain
-      const nextMissed = new Set(missed.value)
-      nextMissed.add(id)
-      missed.value = nextMissed
-    } else if (missed.value.has(id)) {
-      // missed → unmarked
-      const nextMissed = new Set(missed.value)
-      nextMissed.delete(id)
-      missed.value = nextMissed
-    } else {
-      // unmarked → slain
-      const nextSlain = new Set(slain.value)
-      nextSlain.add(id)
-      slain.value = nextSlain
+    const nextSlain  = new Set(slain.value)
+    const nextMissed = new Set(missed.value)
+    nextSlain.delete(id)
+    nextMissed.delete(id)
+    if (state === 'slain')  nextSlain.add(id)
+    if (state === 'missed') nextMissed.add(id)
+    slain.value  = nextSlain
+    missed.value = nextMissed
+
+    // Clear details when unmarking
+    if (state === 'unmarked') {
+      const next = { ...details.value }
+      delete next[id]
+      details.value = next
     }
+
+    persistSave()
+  }
+
+  // Set player/date details for a boss
+  function setDetails(id, { player, date }) {
+    if (!isDev) return
+    const next = { ...details.value }
+    if (player || date) {
+      next[id] = { player, date }
+    } else {
+      delete next[id]
+    }
+    details.value = next
     persistSave()
   }
 
   function resetAll() {
     if (!isDev) return
-    slain.value = new Set()
-    missed.value = new Set()
+    slain.value   = new Set()
+    missed.value  = new Set()
+    details.value = {}
     persistSave()
   }
 
   const stats = computed(() => {
-    const total = BOSSES.length
+    const total      = BOSSES.length
     const slainCount = slain.value.size
     const missedCount = missed.value.size
     return {
@@ -82,7 +97,9 @@ export function useBg3Tracker() {
       slainCount,
       missedCount,
       remaining: total - slainCount - missedCount,
-      majorLeft: BOSSES.filter(b => b.tier === 'major' && !slain.value.has(b.id) && !missed.value.has(b.id)).length,
+      majorLeft: BOSSES.filter(b =>
+        b.tier === 'major' && !slain.value.has(b.id) && !missed.value.has(b.id)
+      ).length,
       pct: Math.round((slainCount / total) * 100)
     }
   })
@@ -94,5 +111,9 @@ export function useBg3Tracker() {
     }))
   )
 
-  return { slain, missed, loaded, isDev, loadSave, cycleState, resetAll, stats, bossesByAct }
+  return {
+    slain, missed, details, loaded, isDev,
+    loadSave, setState, setDetails, resetAll,
+    stats, bossesByAct
+  }
 }

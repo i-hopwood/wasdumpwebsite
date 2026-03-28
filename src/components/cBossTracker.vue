@@ -1,14 +1,24 @@
 <template>
   <div class="bg3-tracker">
 
+    <!-- ── Header ───────────────────────────────────────── -->
     <header class="tracker-header">
       <div class="header-deco">⸻◆⸻</div>
       <h1>Honour Mode Boss Tracker</h1>
       <p class="subtitle">Baldur's Gate III · Stream Companion</p>
       <p v-if="!isDev" class="readonly-notice">👁 View-only — live site</p>
+      <span v-if="isActuallyDev" class="separator">|</span>
+      <button
+        v-if="isActuallyDev"
+        class="filter-btn"
+        :class="{ active: previewProd }"
+        :style="previewProd ? { background: '#1a2a3a', color: '#6090c0', borderColor: '#3060a0' } : {}"
+        @click="previewProd = !previewProd"
+      >{{ previewProd ? '👁 Prod Preview' : 'Preview Prod' }}</button>
       <div class="header-deco">⸻◆⸻</div>
     </header>
 
+    <!-- ── Stats bar ─────────────────────────────────────── -->
     <div class="stats-bar">
       <div class="stat">
         <span class="stat-num">{{ stats.slainCount }}</span>
@@ -34,6 +44,7 @@
       </div>
     </div>
 
+    <!-- ── Filters ───────────────────────────────────────── -->
     <div class="controls">
       <button
         v-for="f in filters"
@@ -44,20 +55,24 @@
       >{{ f.label }}</button>
       <span class="separator">|</span>
       <button v-if="isDev" class="reset-btn" @click="handleReset">Reset All</button>
+      <span v-if="isDev" class="separator">|</span>
+      <button
+        class="filter-btn"
+        :class="{ active: sortOrder === 'default' }"
+        @click="sortOrder = 'default'"
+      >Default Order</button>
+      <button
+        class="filter-btn"
+        :class="{ active: sortOrder === 'date' }"
+        @click="sortOrder = 'date'"
+      >By Slain/Missed Date</button>
     </div>
 
-    <div v-if="isDev" class="cycle-hint">
-      Click a card to cycle:
-      <span class="hint-unmarked">Unmarked</span> →
-      <span class="hint-slain">Slain</span> →
-      <span class="hint-missed">Missed</span> →
-      <span class="hint-unmarked">Unmarked</span>
-    </div>
-
+    <!-- ── Boss grid ──────────────────────────────────────── -->
     <main class="tracker-main">
       <template v-for="{ act, bosses } in bossesByAct" :key="act">
         <section
-          v-show="filteredBosses(bosses).length > 0"
+          v-show="filteredBossesMap[act].length > 0"
           class="act-section"
         >
           <div class="act-header">
@@ -74,7 +89,7 @@
 
           <div class="boss-grid">
             <article
-              v-for="boss in filteredBosses(bosses)"
+              v-for="boss in filteredBossesMap[act]"
               :key="boss.id"
               class="boss-card"
               :class="[
@@ -85,17 +100,18 @@
                   interactive: isDev
                 }
               ]"
-              @click="isDev && cycleState(boss.id)"
+              @click="isDev && openModal(boss)"
             >
               <div class="boss-card-inner">
 
-                <!-- Portrait -->
+                <!-- Portrait thumbnail -->
                 <div class="boss-portrait-wrap">
                   <img
                     v-if="!failedImages.has(boss.id)"
                     :src="`/images/bosses/${boss.id}.png`"
                     :alt="boss.name"
                     class="boss-portrait"
+                    :style="portraitStyle(boss)"
                     @error="failedImages.add(boss.id); failedImages = new Set(failedImages)"
                   />
                   <div v-else class="boss-portrait-fallback">{{ boss.icon }}</div>
@@ -103,32 +119,39 @@
 
                 <!-- Content -->
                 <div class="boss-content">
-                  <div class="boss-top">
-                    <div class="boss-meta">
-                      <div class="boss-name">{{ boss.name }}</div>
-                      <div class="boss-tags">
-                        <span class="tag" :class="boss.tier === 'major' ? 'tag-major' : 'tag-minor'">
-                          {{ boss.tier === 'major' ? '★ Major' : 'Minor' }}
-                        </span>
-                        <span class="tag tag-type">{{ boss.type }}</span>
-                        <span class="tag" :class="boss.optional ? 'tag-optional' : 'tag-story'">
-                          {{ boss.optional ? 'Optional' : 'Story' }}
-                        </span>
-                        <span v-if="slain.has(boss.id)"  class="tag tag-slain">SLAIN</span>
-                        <span v-if="missed.has(boss.id)" class="tag tag-missed">MISSED</span>
-                      </div>
-                      <div class="boss-location">{{ boss.location }}</div>
+                  <div class="boss-meta">
+                    <div class="boss-name">{{ boss.name }}</div>
+                    <div class="boss-tags">
+                      <span class="tag" :class="boss.tier === 'major' ? 'tag-major' : 'tag-minor'">
+                        {{ boss.tier === 'major' ? '★ Major' : 'Minor' }}
+                      </span>
+                      <span class="tag tag-type">{{ boss.type }}</span>
+                      <span class="tag" :class="boss.optional ? 'tag-optional' : 'tag-story'">
+                        {{ boss.optional ? 'Optional' : 'Story' }}
+                      </span>
+                      <span v-if="slain.has(boss.id)"  class="tag tag-slain">SLAIN</span>
+                      <span v-if="missed.has(boss.id)" class="tag tag-missed">MISSED</span>
                     </div>
+                    <div class="boss-location">{{ boss.location }}</div>
                   </div>
 
                   <p class="boss-desc">{{ boss.desc }}</p>
 
-                  <div v-if="boss.legendary" class="legendary-box">
-                    <div class="legendary-label">⚔ Honour Mode Legendary Action</div>
-                    <div class="legendary-text">{{ boss.legendary }}</div>
+                  <!-- Defeated by / date summary if set -->
+                  <div v-if="bossDetail(boss.id).player || bossDetail(boss.id).date" class="card-detail-summary">
+                    <span v-if="bossDetail(boss.id).player" class="detail-player">
+                      ⚔ {{ bossDetail(boss.id).player }}
+                    </span>
+                    <span v-if="bossDetail(boss.id).date" class="detail-date">
+                      · {{ formatDate(bossDetail(boss.id).date) }}
+                    </span>
                   </div>
                 </div>
+              </div>
 
+              <div v-if="boss.legendary" class="legendary-box">
+                <div class="legendary-label">⚔ Honour Mode Legendary Action</div>
+                <div class="legendary-text">{{ boss.legendary }}</div>
               </div>
 
               <!-- State stamps -->
@@ -141,15 +164,144 @@
       </template>
     </main>
 
+    <!-- ── Modal ──────────────────────────────────────────── -->
+    <Teleport to="body">
+      <Transition name="modal">
+        <div v-if="modalBoss" class="modal-backdrop" @click.self="closeModal">
+          <div class="modal-panel" role="dialog" :aria-label="modalBoss.name">
+
+            <!-- Modal portrait -->
+            <div class="modal-portrait-wrap" :class="modalBoss.tier">
+              <img
+                v-if="!failedImages.has(modalBoss.id)"
+                :src="`/images/bosses/${modalBoss.id}.png`"
+                :alt="modalBoss.name"
+                class="modal-portrait"
+                :style="modalPortraitStyle(modalBoss)"
+                @error="failedImages.add(modalBoss.id); failedImages = new Set(failedImages)"
+              />
+              <div v-else class="modal-portrait-fallback">{{ modalBoss.icon }}</div>
+
+              <!-- Overlay gradient so text reads over portrait -->
+              <div class="modal-portrait-gradient" />
+
+              <!-- Name overlaid on portrait -->
+              <div class="modal-portrait-name">
+                <div class="modal-boss-name">{{ modalBoss.name }}</div>
+                <div class="modal-boss-type">{{ modalBoss.type }}</div>
+              </div>
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body">
+
+              <!-- Tags row -->
+              <div class="modal-tags">
+                <span class="tag" :class="modalBoss.tier === 'major' ? 'tag-major' : 'tag-minor'">
+                  {{ modalBoss.tier === 'major' ? '★ Major' : 'Minor' }}
+                </span>
+                <span class="tag" :class="modalBoss.optional ? 'tag-optional' : 'tag-story'">
+                  {{ modalBoss.optional ? 'Optional' : 'Story' }}
+                </span>
+                <span class="tag tag-type">Act {{ romanAct[modalBoss.act] }}</span>
+              </div>
+
+              <div class="modal-location">{{ modalBoss.location }}</div>
+
+              <!-- State toggle -->
+              <div class="modal-section">
+                <div class="modal-section-label">Status</div>
+                <div class="state-toggle">
+                  <button
+                    class="state-btn"
+                    :class="{ active: modalState === 'unmarked' }"
+                    @click="modalState = 'unmarked'"
+                  >Unmarked</button>
+                  <button
+                    class="state-btn state-btn--slain"
+                    :class="{ active: modalState === 'slain' }"
+                    @click="modalState = 'slain'"
+                  >✓ Slain</button>
+                  <button
+                    class="state-btn state-btn--missed"
+                    :class="{ active: modalState === 'missed' }"
+                    @click="modalState = 'missed'"
+                  >✗ Missed</button>
+                </div>
+              </div>
+
+              <!-- Player name -->
+              <div class="modal-section" v-if="modalState === 'slain'">
+                <div class="modal-section-label">
+                  {{ 'Defeated by' }}
+                </div>
+                <div class="player-toggle">
+                <button
+                  v-for="player in players"
+                  :key="player"
+                  class="player-btn"
+                  :style="selectedPlayer === player ? {
+                    background: '#3d2f14',
+                    color: '#e8cc7a',
+                    borderColor: '#c9a84c'
+                  } : {}"
+                  @click="selectPlayer(player)"
+                >{{ player }}</button>
+                </div>
+              </div>
+
+              <!-- Date -->
+              <div class="modal-section" v-if="modalState === 'slain' || modalState === 'missed'">
+                <div class="modal-section-label">Date</div>
+                <input
+                  v-model="modalDate"
+                  class="modal-input"
+                  type="date"
+                  :disabled="!isDev"
+                />
+              </div>
+
+              <!-- Legendary action -->
+              <div v-if="modalBoss.legendary" class="legendary-box modal-legendary">
+                <div class="legendary-label">⚔ Honour Mode Legendary Action</div>
+                <div class="legendary-text">{{ modalBoss.legendary }}</div>
+              </div>
+
+              <!-- Description -->
+              <p class="modal-desc">{{ modalBoss.desc }}</p>
+
+              <!-- Actions -->
+              <div class="modal-actions">
+                <button class="modal-cancel" @click="closeModal">Cancel</button>
+                <button v-if="isDev" class="modal-save" @click="saveModal">Save</button>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </Transition>
+    </Teleport>
+
   </div>
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref, computed, onMounted, onUnmounted } from 'vue'
 import { useBg3Tracker } from '@/composables/useBg3Tracker.js'
 
-const { slain, missed, isDev, loadSave, cycleState, resetAll, stats, bossesByAct } = useBg3Tracker()
+const {
+  slain, missed, details,
+  isDev: isActuallyDev, loadSave,
+  setState, setDetails,
+  resetAll, stats, bossesByAct
+} = useBg3Tracker()
 
+const previewProd = ref(false)
+const isDev = computed(() => isActuallyDev && !previewProd.value)
+
+const players = ['Elliot','Iain','Otto']
+
+// ── Filters ──────────────────────────────────────────────
 const activeFilter = ref('all')
 const failedImages = ref(new Set())
 
@@ -168,20 +320,42 @@ const filters = [
   { value: 'alive',  label: 'Still Alive' },
 ]
 
-function filteredBosses(bosses) {
-  const f = activeFilter.value
-  return bosses.filter(b => {
-    if (f === 'act1')   return b.act === 1
-    if (f === 'act2')   return b.act === 2
-    if (f === 'act3')   return b.act === 3
-    if (f === 'major')  return b.tier === 'major'
-    if (f === 'minor')  return b.tier === 'minor'
-    if (f === 'slain')  return slain.value.has(b.id)
-    if (f === 'missed') return missed.value.has(b.id)
-    if (f === 'alive')  return !slain.value.has(b.id) && !missed.value.has(b.id)
-    return true
-  })
-}
+const sortOrder = ref('default')
+
+const selectedPlayer = computed(() => modalPlayer.value)
+
+// Remove the filteredBosses function and replace with this:
+const filteredBossesMap = computed(() => {
+  const result = {}
+  for (const { act, bosses } of bossesByAct.value) {
+    let list = bosses.filter(b => {
+      const f = activeFilter.value
+      if (f === 'act1')   return b.act === 1
+      if (f === 'act2')   return b.act === 2
+      if (f === 'act3')   return b.act === 3
+      if (f === 'major')  return b.tier === 'major'
+      if (f === 'minor')  return b.tier === 'minor'
+      if (f === 'slain')  return slain.value.has(b.id)
+      if (f === 'missed') return missed.value.has(b.id)
+      if (f === 'alive')  return !slain.value.has(b.id) && !missed.value.has(b.id)
+      return true
+    })
+
+    if (sortOrder.value === 'date') {
+      list = [...list].sort((a, b) => {
+        const aDate = details.value[a.id]?.date
+        const bDate = details.value[b.id]?.date
+        if (aDate && bDate) return aDate.localeCompare(bDate)
+        if (aDate) return -1
+        if (bDate) return 1
+        return 0
+      })
+    }
+
+    result[act] = list
+  }
+  return result
+})
 
 function handleReset() {
   if (confirm('Reset all progress? (The blood of your enemies will be forgotten)')) {
@@ -189,7 +363,90 @@ function handleReset() {
   }
 }
 
-onMounted(loadSave)
+// ── Image crop ───────────────────────────────────────────
+// boss.portrait = { x: 50, y: 20, zoom: 1.3 }
+// x/y are object-position percentages, zoom scales the image
+function portraitStyle(boss) {
+  const p = boss.portrait ?? { x: 50, y: 15, zoom: 1 }
+  return {
+    objectPosition: `${p.x}% ${p.y}%`,
+    transform: `scale(${p.zoom ?? 1})`,
+    transformOrigin: `${p.x}% ${p.y}%`,
+  }
+}
+
+function modalPortraitStyle(boss) {
+  const p = boss.portrait ?? { x: 50, y: 15, zoom: 1 }
+  // In the modal we use a slightly reduced zoom so more of the image is visible
+  const zoom = Math.max(1, (p.zoom ?? 1) * 0.85)
+  return {
+    objectPosition: `${p.x}% ${p.y}%`,
+    transform: `scale(${zoom})`,
+    transformOrigin: `${p.x}% ${p.y}%`,
+  }
+}
+
+// ── Details helper ───────────────────────────────────────
+function bossDetail(id) {
+  return details.value[id] ?? {}
+}
+
+function formatDate(iso) {
+  if (!iso) return ''
+  const [y, m, d] = iso.split('-')
+  return `${d}/${m}/${y}`
+}
+
+// ── Modal ────────────────────────────────────────────────
+const modalBoss   = ref(null)
+const modalState  = ref('unmarked')
+const modalPlayer = ref('')
+const modalDate   = ref('')
+
+function openModal(boss) {
+  modalBoss.value   = boss
+  modalState.value  = slain.value.has(boss.id) ? 'slain' : missed.value.has(boss.id) ? 'missed' : 'unmarked'
+  const d           = bossDetail(boss.id)
+  modalPlayer.value = d.player ?? ''
+  modalDate.value   = d.date   ?? new Date().toISOString().split('T')[0]
+  document.body.style.overflow = 'hidden'
+}
+
+function closeModal() {
+  modalBoss.value = null
+  document.body.style.overflow = ''
+}
+
+function saveModal() {
+  if (!isDev) return
+  setState(modalBoss.value.id, modalState.value)
+  if (modalState.value !== 'unmarked') {
+    setDetails(modalBoss.value.id, {
+      player: modalPlayer.value.trim(),
+      date:   modalDate.value,
+    })
+  }
+  closeModal()
+}
+
+// Close on Escape
+function onKeydown(e) {
+  if (e.key === 'Escape') closeModal()
+}
+
+function selectPlayer(player) {
+  if (!isDev) return
+  modalPlayer.value = modalPlayer.value === player ? '' : player
+}
+
+onMounted(() => {
+  loadSave()
+  window.addEventListener('keydown', onKeydown)
+})
+onUnmounted(() => {
+  window.removeEventListener('keydown', onKeydown)
+  document.body.style.overflow = ''
+})
 </script>
 
 <style scoped>
@@ -206,6 +463,7 @@ onMounted(loadSave)
   --border-gold:     #3d2f14;
   --text:            #d4c4a0;
   --text-dim:        #7a6e5a;
+  --green-dead:      #2d4a1e;
   --green-dead-text: #5a8a3a;
   --red-missed:      #8b1a1a;
   --red-missed-text: #c05050;
@@ -225,12 +483,7 @@ onMounted(loadSave)
   padding: 3rem 2rem 1.5rem;
   border-bottom: 1px solid var(--border-gold);
 }
-.header-deco {
-  color: var(--gold-dim);
-  font-size: 0.8rem;
-  letter-spacing: 0.3em;
-  margin: 0.4rem 0;
-}
+.header-deco { color: var(--gold-dim); font-size: 0.8rem; letter-spacing: 0.3em; margin: 0.4rem 0; }
 h1 {
   font-family: 'Cinzel Decorative', serif;
   font-size: clamp(1.4rem, 4vw, 2.8rem);
@@ -267,14 +520,14 @@ h1 {
   border-bottom: 1px solid var(--border);
   background: rgba(0,0,0,0.2);
 }
-.stat           { text-align: center; font-family: 'Cinzel', serif; }
-.stat-num       { font-size: 1.4rem; color: var(--gold); font-weight: 600; display: block; line-height: 1; }
-.missed-num     { color: var(--red-missed-text) !important; }
-.stat-label     { font-size: 0.58rem; color: var(--text-dim); letter-spacing: 0.2em; text-transform: uppercase; }
+.stat       { text-align: center; font-family: 'Cinzel', serif; }
+.stat-num   { font-size: 1.4rem; color: var(--gold); font-weight: 600; display: block; line-height: 1; }
+.missed-num { color: var(--red-missed-text) !important; }
+.stat-label { font-size: 0.58rem; color: var(--text-dim); letter-spacing: 0.2em; text-transform: uppercase; }
 .progress-bar-wrap { display: flex; align-items: center; gap: 0.75rem; min-width: 180px; max-width: 300px; flex: 1; }
-.progress-bar   { flex: 1; height: 6px; background: var(--border); border-radius: 3px; overflow: hidden; }
-.progress-fill  { height: 100%; background: linear-gradient(90deg, var(--gold-dim), var(--gold)); border-radius: 3px; transition: width 0.5s ease; }
-.progress-pct   { font-family: 'Cinzel', serif; font-size: 0.7rem; color: var(--gold-dim); min-width: 36px; text-align: right; }
+.progress-bar  { flex: 1; height: 6px; background: var(--border); border-radius: 3px; overflow: hidden; }
+.progress-fill { height: 100%; background: linear-gradient(90deg, var(--gold-dim), var(--gold)); border-radius: 3px; transition: width 0.5s ease; }
+.progress-pct  { font-family: 'Cinzel', serif; font-size: 0.7rem; color: var(--gold-dim); min-width: 36px; text-align: right; }
 
 /* ── Controls ──────────────────────────────────────────── */
 .controls {
@@ -302,7 +555,7 @@ h1 {
 }
 .filter-btn:hover  { color: var(--gold); border-color: var(--gold-dim); }
 .filter-btn.active { background: var(--border-gold); color: var(--gold-light); border-color: var(--gold); }
-.separator         { color: var(--border-gold); }
+.separator { color: var(--border-gold); }
 .reset-btn {
   font-family: 'Cinzel', serif;
   font-size: 0.65rem;
@@ -318,21 +571,6 @@ h1 {
 }
 .reset-btn:hover { background: rgba(139,26,26,0.25); color: #e08080; border-color: var(--red-bright); }
 
-/* ── Cycle hint ────────────────────────────────────────── */
-.cycle-hint {
-  text-align: center;
-  padding: 0.6rem 2rem;
-  font-family: 'Cinzel', serif;
-  font-size: 0.6rem;
-  letter-spacing: 0.15em;
-  color: var(--text-dim);
-  background: rgba(0,0,0,0.15);
-  border-bottom: 1px solid var(--border);
-}
-.hint-unmarked { color: var(--text-dim); }
-.hint-slain    { color: var(--green-dead-text); }
-.hint-missed   { color: var(--red-missed-text); }
-
 /* ── Acts ──────────────────────────────────────────────── */
 .tracker-main { max-width: 1400px; margin: 0 auto; padding: 2rem 1.5rem; }
 .act-section  { margin-bottom: 3rem; }
@@ -345,7 +583,12 @@ h1 {
 .badge-act3   { background: rgba(42,74,122,0.2);  color: #6090c0; border: 1px solid rgba(42,74,122,0.4); }
 
 /* ── Boss grid ─────────────────────────────────────────── */
-.boss-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 1rem; }
+.boss-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  gap: 1rem;
+  align-items: stretch;
+}
 
 /* ── Boss card ─────────────────────────────────────────── */
 .boss-card {
@@ -356,7 +599,11 @@ h1 {
   position: relative;
   overflow: hidden;
   transition: all 0.2s ease;
+  cursor: default;
+  display: flex;
+  flex-direction: column;
 }
+.boss-card.interactive { cursor: pointer; }
 .boss-card::before {
   content: '';
   position: absolute;
@@ -366,37 +613,30 @@ h1 {
   opacity: 0.5;
   transition: background 0.2s;
 }
-.boss-card.interactive         { cursor: pointer; }
-.boss-card.interactive:hover   { border-color: var(--gold); transform: translateY(-1px); box-shadow: 0 4px 20px rgba(0,0,0,0.5); }
-
-/* Major */
-.boss-card.major               { border-color: rgba(139,26,26,0.5); }
-.boss-card.major::before       { background: var(--red-bright); }
-.boss-card.major .boss-name    { color: #e08080; }
-.boss-card.major.interactive:hover { border-color: #c0392b; }
-
-/* Slain */
-.boss-card.slain               { background: rgba(20,30,15,0.8); border-color: var(--border); opacity: 0.6; }
-.boss-card.slain::before       { background: #2d4a1e; opacity: 1; }
-.boss-card.slain.interactive:hover { opacity: 0.8; transform: none; }
-.boss-card.slain .boss-name    { text-decoration: line-through; color: var(--green-dead-text); }
+.boss-card:hover { border-color: var(--gold); transform: translateY(-1px); box-shadow: 0 4px 20px rgba(0,0,0,0.5); }
+.boss-card.major             { border-color: rgba(139,26,26,0.5); }
+.boss-card.major::before     { background: var(--red-bright); }
+.boss-card.major .boss-name  { color: #e08080; }
+.boss-card.major:hover       { border-color: #c0392b; }
+.boss-card.slain             { background: rgba(20,30,15,0.8); border-color: var(--border); opacity: 0.65; }
+.boss-card.slain::before     { background: var(--green-dead); opacity: 1; }
+.boss-card.slain:hover       { opacity: 0.9; transform: none; }
+.boss-card.slain .boss-name  { text-decoration: line-through; color: var(--green-dead-text); }
 .boss-card.slain .boss-portrait { filter: grayscale(1); opacity: 0.5; }
-
-/* Missed */
-.boss-card.missed              { background: rgba(30,10,10,0.8); border-color: rgba(139,26,26,0.3); opacity: 0.65; }
-.boss-card.missed::before      { background: var(--red-missed); opacity: 1; }
-.boss-card.missed.interactive:hover { opacity: 0.85; transform: none; }
-.boss-card.missed .boss-name   { text-decoration: line-through; color: var(--red-missed-text); }
+.boss-card.missed            { background: rgba(30,10,10,0.8); border-color: rgba(139,26,26,0.3); opacity: 0.65; }
+.boss-card.missed::before    { background: var(--red-missed); opacity: 1; }
+.boss-card.missed:hover      { opacity: 0.9; transform: none; }
+.boss-card.missed .boss-name { text-decoration: line-through; color: var(--red-missed-text); }
 .boss-card.missed .boss-portrait { filter: grayscale(1) sepia(0.3); opacity: 0.5; }
 
-/* ── Card inner layout ─────────────────────────────────── */
 .boss-card-inner {
   display: flex;
   gap: 1rem;
   align-items: flex-start;
+  flex: 1;
 }
 
-/* ── Portrait ──────────────────────────────────────────── */
+/* ── Portrait (card) ───────────────────────────────────── */
 .boss-portrait-wrap {
   flex-shrink: 0;
   width: 90px;
@@ -412,29 +652,35 @@ h1 {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: center top;
   display: block;
+  transition: filter 0.3s, opacity 0.3s;
 }
 .boss-portrait-fallback {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 2rem;
-  min-height: 120px;
+  width: 100%; height: 100%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 2rem; min-height: 120px;
   color: var(--gold-dim);
 }
 
-/* ── Boss content ──────────────────────────────────────── */
+/* ── Boss content (card) ───────────────────────────────── */
 .boss-content  { flex: 1; min-width: 0; }
-.boss-top      { margin-bottom: 0.6rem; }
-.boss-meta     { flex: 1; min-width: 0; }
+.boss-meta     { margin-bottom: 0.6rem; }
 .boss-name     { font-family: 'Cinzel', serif; font-size: 0.95rem; color: var(--gold-light); font-weight: 600; line-height: 1.2; margin-bottom: 0.2rem; }
 .boss-tags     { display: flex; flex-wrap: wrap; gap: 0.3rem; margin-bottom: 0.35rem; }
 .boss-location { font-size: 0.75rem; color: var(--text-dim); font-style: italic; }
 .boss-location::before { content: '📍 '; font-style: normal; font-size: 0.65rem; }
 .boss-desc     { font-size: 0.8rem; color: var(--text); line-height: 1.55; margin: 0.5rem 0; opacity: 0.85; }
+
+/* Card detail summary (player / date) */
+.card-detail-summary {
+  font-family: 'Cinzel', serif;
+  font-size: 0.62rem;
+  letter-spacing: 0.1em;
+  color: var(--gold-dim);
+  margin-bottom: 0.4rem;
+}
+.detail-player { color: var(--gold); }
+.detail-date   { color: var(--text-dim); }
 
 /* ── Tags ──────────────────────────────────────────────── */
 .tag          { font-family: 'Cinzel', serif; font-size: 0.55rem; letter-spacing: 0.12em; padding: 0.1rem 0.4rem; border-radius: 2px; text-transform: uppercase; display: inline-block; }
@@ -447,7 +693,7 @@ h1 {
 .tag-missed   { background: rgba(80,10,10,0.5);   color: var(--red-missed-text); border: 1px solid rgba(139,26,26,0.5); }
 
 /* ── Legendary box ─────────────────────────────────────── */
-.legendary-box   { margin-top: 0.6rem; background: rgba(139,26,26,0.1); border: 1px solid rgba(139,26,26,0.3); border-radius: 3px; padding: 0.5rem 0.65rem; }
+.legendary-box   { margin-top: 0.75rem; background: rgba(139,26,26,0.1); border: 1px solid rgba(139,26,26,0.3); border-radius: 3px; padding: 0.5rem 0.65rem; flex-shrink: 0; }
 .legendary-label { font-family: 'Cinzel', serif; font-size: 0.58rem; letter-spacing: 0.2em; color: #c06060; text-transform: uppercase; margin-bottom: 0.25rem; }
 .legendary-text  { font-size: 0.75rem; color: #c09080; line-height: 1.5; font-style: italic; }
 
@@ -469,12 +715,229 @@ h1 {
 .slain-stamp  { color: var(--green-dead-text); border-color: var(--green-dead-text); }
 .missed-stamp { color: var(--red-missed-text); border-color: var(--red-missed-text); }
 
+/* ── Modal backdrop ────────────────────────────────────── */
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.85);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 1rem;
+  backdrop-filter: blur(3px);
+}
+
+/* ── Modal panel ───────────────────────────────────────── */
+.modal-panel {
+  background: var(--panel);
+  border: 1px solid var(--border-gold);
+  border-radius: 6px;
+  width: 100%;
+  max-width: 680px;
+  max-height: 90vh;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.8), 0 0 0 1px rgba(201,168,76,0.1);
+}
+
+/* ── Modal portrait ────────────────────────────────────── */
+.modal-portrait-wrap {
+  position: relative;
+  width: 100%;
+  height: 280px;
+  overflow: hidden;
+  border-radius: 6px 6px 0 0;
+  flex-shrink: 0;
+  background: var(--panel2);
+}
+.modal-portrait-wrap.major { border-bottom: 2px solid rgba(139,26,26,0.6); }
+.modal-portrait {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.modal-portrait-fallback {
+  width: 100%; height: 100%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 5rem;
+  color: var(--gold-dim);
+}
+.modal-portrait-gradient {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    transparent 30%,
+    rgba(5,3,2,0.5) 60%,
+    rgba(5,3,2,0.95) 100%
+  );
+}
+.modal-portrait-name {
+  position: absolute;
+  bottom: 1.25rem;
+  left: 1.5rem;
+  right: 1.5rem;
+}
+.modal-boss-name {
+  font-family: 'Cinzel Decorative', serif;
+  font-size: clamp(1.1rem, 3vw, 1.7rem);
+  color: var(--gold);
+  text-shadow: 0 2px 8px rgba(0,0,0,0.9);
+  line-height: 1.2;
+}
+.modal-boss-type {
+  font-family: 'Cinzel', serif;
+  font-size: 0.7rem;
+  color: var(--text-dim);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  margin-top: 0.25rem;
+}
+
+/* ── Modal body ────────────────────────────────────────── */
+.modal-body { padding: 1.5rem; display: flex; flex-direction: column; gap: 1.1rem; }
+
+.modal-tags     { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+.modal-location { font-size: 0.8rem; color: var(--text-dim); font-style: italic; }
+.modal-location::before { content: '📍 '; font-style: normal; }
+
+.modal-desc {
+  font-size: 0.85rem;
+  color: var(--text);
+  line-height: 1.65;
+  opacity: 0.9;
+  border-top: 1px solid var(--border);
+  padding-top: 1rem;
+}
+
+.modal-legendary { margin-top: 0; }
+
+/* ── Modal sections ────────────────────────────────────── */
+.modal-section { display: flex; flex-direction: column; gap: 0.5rem; }
+.modal-section-label {
+  font-family: 'Cinzel', serif;
+  font-size: 0.6rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--gold-dim);
+}
+
+/* ── State toggle ──────────────────────────────────────── */
+.state-toggle { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+.state-btn {
+  font-family: 'Cinzel', serif;
+  font-size: 0.7rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  border: 1px solid var(--border-gold);
+  background: var(--panel2);
+  color: var(--text-dim);
+  padding: 0.45rem 1rem;
+  cursor: pointer;
+  transition: all 0.2s;
+  border-radius: 2px;
+  flex: 1;
+}
+.state-btn:hover { border-color: var(--gold-dim); color: var(--text); }
+.state-btn.active { background: var(--border-gold); color: var(--gold-light); border-color: var(--gold); }
+.state-btn--slain.active  { background: rgba(20,50,15,0.6); color: var(--green-dead-text); border-color: var(--green-dead-text); }
+.state-btn--missed.active { background: rgba(80,10,10,0.6); color: var(--red-missed-text); border-color: var(--red-missed-text); }
+
+/* ── Player toggle ─────────────────────────────────────── */
+.player-toggle { display: flex; gap: 0.5rem; }
+.player-btn {
+  font-family: 'Cinzel', serif;
+  font-size: 0.7rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  border: 1px solid var(--border-gold);
+  background: var(--panel2);
+  color: var(--text-dim);
+  padding: 0.45rem 1rem;
+  cursor: pointer;
+  transition: all 0.2s;
+  border-radius: 2px;
+  flex: 1;
+}
+.player-btn:hover:not(:disabled)  { border-color: var(--gold-dim); color: var(--text); }
+.player-btn.active {
+  background: var(--border-gold) !important;
+  color: var(--gold-light) !important;
+  border-color: var(--gold) !important;
+}
+.player-btn.disabled { opacity: 0.5; cursor: not-allowed; }
+
+/* ── Modal inputs ──────────────────────────────────────── */
+.modal-input {
+  font-family: 'IM Fell English', Georgia, serif;
+  font-size: 0.9rem;
+  background: var(--panel2);
+  border: 1px solid var(--border-gold);
+  color: var(--text);
+  padding: 0.5rem 0.75rem;
+  border-radius: 3px;
+  width: 100%;
+  transition: border-color 0.2s;
+  outline: none;
+}
+.modal-input:focus    { border-color: var(--gold); }
+.modal-input:disabled { opacity: 0.5; cursor: not-allowed; }
+.modal-input[type="date"] { color-scheme: dark; }
+
+/* ── Modal actions ─────────────────────────────────────── */
+.modal-actions {
+  display: flex;
+  gap: 0.75rem;
+  justify-content: flex-end;
+  border-top: 1px solid var(--border);
+  padding-top: 1rem;
+}
+.modal-cancel {
+  font-family: 'Cinzel', serif;
+  font-size: 0.68rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  border: 1px solid var(--border-gold);
+  background: transparent;
+  color: var(--text-dim);
+  padding: 0.5rem 1.25rem;
+  cursor: pointer;
+  transition: all 0.2s;
+  border-radius: 2px;
+}
+.modal-cancel:hover { color: var(--text); border-color: var(--gold-dim); }
+.modal-save {
+  font-family: 'Cinzel', serif;
+  font-size: 0.68rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  border: 1px solid var(--gold);
+  background: var(--border-gold);
+  color: var(--gold-light);
+  padding: 0.5rem 1.25rem;
+  cursor: pointer;
+  transition: all 0.2s;
+  border-radius: 2px;
+}
+.modal-save:hover { background: #5a4520; color: var(--gold); }
+
+/* ── Modal transition ──────────────────────────────────── */
+.modal-enter-active, .modal-leave-active { transition: opacity 0.2s ease; }
+.modal-enter-active .modal-panel, .modal-leave-active .modal-panel { transition: transform 0.25s ease, opacity 0.2s ease; }
+.modal-enter-from, .modal-leave-to { opacity: 0; }
+.modal-enter-from .modal-panel, .modal-leave-to .modal-panel { transform: translateY(20px) scale(0.97); opacity: 0; }
+
 /* ── Responsive ────────────────────────────────────────── */
 @media (max-width: 600px) {
-  h1                  { font-size: 1.3rem; }
-  .boss-grid          { grid-template-columns: 1fr; }
-  .controls           { gap: 0.5rem; }
-  .tracker-main       { padding: 1.25rem 1rem; }
-  .boss-portrait-wrap { width: 70px; }
+  h1                   { font-size: 1.3rem; }
+  .controls            { gap: 0.5rem; }
+  .tracker-main        { padding: 1.25rem 1rem; }
+  .boss-portrait-wrap  { width: 70px; }
+  .modal-portrait-wrap { height: 200px; }
+  .modal-body          { padding: 1rem; }
+  .state-toggle        { flex-direction: column; }
 }
 </style>
