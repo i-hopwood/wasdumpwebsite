@@ -255,3 +255,73 @@ export default {
   },
 }
 </script>
+<style scoped>
+/* Mobile-friendly adjustments for cRetroYears */
+.c-retro-years {
+  padding: 1rem;
+}
+
+/* Accordion and table tweaks */
+.accordion-body {
+  padding: 1rem;
+}
+
+@media (max-width: 767.98px) {
+  .c-retro-years {
+    padding: 0.5rem 0.25rem;
+  }
+  .accordion-body {
+    padding: 0.5rem 0.25rem;
+  }
+  .accordion-button {
+    font-size: 1.1rem;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+    padding: 0.75rem 0.5rem;
+  }
+  .retro-year-title {
+    font-size: 1.2rem !important;
+  }
+  .badge {
+    font-size: 1rem !important;
+    padding: 0.5em 1em !important;
+  }
+  .table-responsive {
+    overflow-x: auto;
+  }
+  .table th,
+  .table td {
+    padding: 0.4rem 0.3rem !important;
+    font-size: 0.95rem;
+  }
+  .row.g-3 {
+    --bs-gutter-x: 0.5rem;
+    --bs-gutter-y: 0.5rem;
+  }
+  .p-3 {
+    padding: 0.75rem !important;
+  }
+}
+
+/* Make table scrollable on small screens */
+.table-responsive {
+  overflow-x: auto;
+}
+
+/* Winner by Console cards: stack vertically on mobile */
+@media (max-width: 575.98px) {
+  .col-md-6,
+  .col-md-4,
+  .col-md-3,
+  .col-sm-6 {
+    flex: 0 0 100%;
+    max-width: 100%;
+  }
+}
+
+/* Prevent horizontal overflow */
+.c-retro-years {
+  overflow-x: hidden;
+}
+</style>

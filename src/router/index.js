@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
+import D20View from '@/View/D20View.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -10,9 +11,14 @@ const router = createRouter({
       component: HomeView,
     },
     {
+      path: '/roll',
+      name: 'roll',
+      component: D20View,
+    },
+    {
       path: '/boss-tracker',
       name: 'BossTracker',
-      component: () => import('@/views/BossTrackerView.vue')
+      component: () => import('@/views/BossTrackerView.vue'),
     },
   ],
 })
