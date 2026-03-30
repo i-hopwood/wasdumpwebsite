@@ -98,7 +98,7 @@ export const BOSSES = [
   },
   {
     id: 'gekh-coal', act: 1, tier: 'minor', name: 'Gekh Coal', type: 'Duergar',
-    portrait: { x:50, y: 15, zoom: 1.4 },
+    portrait: { x: 70, y: 115, zoom: 1.3 },
     icon: '⛓', location: 'Underdark — near the Myconid Colony',
     optional: true,
     desc: 'A duergar slaver overseeing gnome prisoners in the Underdark. Freeing the gnomes is a side quest; Gekh is the obstacle. He can turn invisible like all duergar and enlarge himself.',
@@ -114,7 +114,7 @@ export const BOSSES = [
   },
   {
     id: 'bulette', act: 1, tier: 'minor', name: 'Bulette', type: 'Monstrosity',
-    portrait: { x:50, y: 15, zoom: 1.4 },
+    portrait: { x:55, y: 15, zoom: 1.2 },
     icon: '🦈', location: 'Wilderness — various locations',
     optional: true,
     desc: 'A massive subterranean predator known as a "land shark." Heavily armoured, burrowing, and capable of leaping attacks that hit everything nearby. Mostly an environmental encounter — great loot and a fun challenge.',
@@ -122,7 +122,7 @@ export const BOSSES = [
   },
   {
     id: 'bernard', act: 1, tier: 'minor', name: 'Bernard', type: 'Construct (Arcane Knight)',
-    portrait: { x:50, y: 15, zoom: 1.4 },
+    portrait: { x:50, y: 50, zoom: 3 },
     icon: '🤖', location: 'Arcane Tower — Underdark',
     optional: true,
     desc: 'The guardian automaton of the Arcane Tower. You can actually avoid this fight by speaking the right poetry to him — he has a soft spot for it. If combat breaks out, he\'s a well-armoured construct with lightning abilities.',
@@ -138,7 +138,7 @@ export const BOSSES = [
   },
   {
     id: 'sarth-baretha', act: 1, tier: 'minor', name: 'Sarth Baretha', type: 'Githyanki',
-    portrait: { x:50, y: 15, zoom: 1.4 },
+    portrait: { x:65, y: 35, zoom: 1.4 },
     icon: '🛡', location: 'Crèche Y\'llek — Rosymorn Monastery',
     optional: true,
     desc: 'A githyanki warrior encountered in the crèche. Part of the githyanki questline conflict. Straightforward melee fighter in heavily armed company.',
@@ -148,7 +148,7 @@ export const BOSSES = [
   // ─── ACT II ────────────────────────────────────────────────────────────────
   {
     id: 'karniss', act: 2, tier: 'minor', name: "Kar'niss", type: 'Drider',
-    portrait: { x:50, y: 15, zoom: 1.4 },
+    portrait: { x: 60, y: 15, zoom: 1.2 },
     icon: '🕸', location: 'Shadow-Cursed Lands — Underdark road ambush',
     optional: true,
     desc: 'A drider serving the Absolute who leads a group of Harpers ambushers. Half-drow, half-spider monstrosity. His fanatical cult followers die hard. He carries the Moon Lantern which is critical for traversing the shadow curse.',
@@ -156,7 +156,7 @@ export const BOSSES = [
   },
   {
     id: 'shadow-shambling', act: 2, tier: 'minor', name: 'Shadow-Cursed Shambling Mound', type: 'Blight',
-    portrait: { x:50, y: 15, zoom: 1.4 },
+    portrait: { x:50, y: 15, zoom: 1.2 },
     icon: '🌑', location: 'Shadow-Cursed Lands',
     optional: true,
     desc: 'A massive plant creature warped by the shadow curse into something far deadlier. The shadow curse makes it absorb lightning and turn it into healing. Fire and radiant damage are your friends.',
@@ -164,7 +164,7 @@ export const BOSSES = [
   },
   {
     id: 'he-who-was', act: 2, tier: 'minor', name: 'He Who Was', type: 'Undead',
-    portrait: { x:50, y: 15, zoom: 1.4 },
+    portrait: { x:32, y: 45, zoom: 1.4 },
     icon: '💔', location: 'Shadow-Cursed Lands — ruined house',
     optional: true,
     desc: 'A tragic ghost seeking vengeance on the ghost of the woman who betrayed him. It\'s more of a puzzle/dialogue encounter, but it can turn violent. Haunting atmosphere and a genuinely sad story.',
@@ -172,7 +172,7 @@ export const BOSSES = [
   },
   {
     id: 'oliver', act: 2, tier: 'minor', name: 'Oliver', type: 'Tiefling Child (Aberration)',
-    portrait: { x:50, y: 15, zoom: 1.4 },
+    portrait: { x:50, y: 50, zoom: 2 },
     icon: '🎭', location: 'Shadow-Cursed Lands — abandoned house',
     optional: true,
     desc: 'A tiefling child playing with shadows in the cursed lands — and the shadows play back. Don\'t let the child exterior fool you; he\'s been fundamentally corrupted and summons shadow entities. Deeply unsettling encounter.',
@@ -180,7 +180,7 @@ export const BOSSES = [
   },
   {
     id: 'thisobald-thorm', act: 2, tier: 'minor', name: 'Thisobald Thorm', type: 'Undead Elf',
-    portrait: { x:50, y: 15, zoom: 1.4 },
+    portrait: { x:50, y: 45, zoom: 1.4 },
     icon: '🍺', location: 'The Waning Moon — Reithwin Town',
     optional: true,
     desc: "The Thorm family's undead drunk uncle. He can literally be talked to death — keep matching his drinks and stories until he passes out or keels over. Fighting him means dealing with his ever-changing brew that cycles damage types.",
@@ -196,7 +196,7 @@ export const BOSSES = [
   },
   {
     id: 'malus-thorm', act: 2, tier: 'minor', name: 'Malus Thorm', type: 'Undead Elf (Surgeon)',
-    portrait: { x:50, y: 15, zoom: 1.4 },
+    portrait: { x:50, y: 30, zoom: 2.5 },
     icon: '🩺', location: 'House of Healing — Reithwin Town',
     optional: true,
     desc: 'A deranged undead surgeon running a "hospital" with very creative medical practices. You can talk him into having his nurses operate on him instead. In combat he directs his nurse assistants to attack in horrifying coordinated strikes.',
@@ -204,7 +204,7 @@ export const BOSSES = [
   },
   {
     id: 'balthazar', act: 2, tier: 'major', name: 'Balthazar', type: 'Undead (Necromancer)',
-    portrait: { x:50, y: 15, zoom: 1.4 },
+    portrait: { x: 68, y: 45, zoom: 1.4 },
     icon: '💀', location: 'Gauntlet of Shar — Inner Sanctum',
     optional: true,
     desc: 'Ketheric Thorm\'s personal necromancer. He\'s in the Gauntlet of Shar hunting for the Nightsong. Incredibly powerful spellcaster with an undead army. Can be befriended or killed — befriending him has consequences later.',
@@ -212,7 +212,7 @@ export const BOSSES = [
   },
   {
     id: 'yurgir', act: 2, tier: 'major', name: 'Yurgir', type: 'Orthon (Fiend)',
-    portrait: { x:50, y: 15, zoom: 1.4 },
+    portrait: { x:80, y: 65, zoom: 1.4 },
     icon: '💣', location: 'Gauntlet of Shar',
     optional: true,
     desc: 'A massive devil soldier bound by contract to Raphael, stuck killing cultists in Shar\'s sanctum. You can free him by helping him fulfill the contract — or just fight him. He is enormous, fire-resistant, and throws bombs.',
@@ -220,7 +220,7 @@ export const BOSSES = [
   },
   {
     id: 'marcus', act: 2, tier: 'minor', name: 'Marcus', type: 'Aberration (Winged Human)',
-    portrait: { x:50, y: 15, zoom: 1.4 },
+    portrait: { x:33, y: 30, zoom: 2.2 },
     icon: '🪽', location: 'Last Light Inn',
     optional: false,
     desc: 'A former Harper turned Absolute thrall with mind-flayer-grafted wings. He attacks the Last Light Inn to kidnap Isobel. If Isobel dies, the inn\'s protective light fails and everyone dies. Protect her at all costs.',
@@ -228,7 +228,7 @@ export const BOSSES = [
   },
   {
     id: 'jaheira-enemy', act: 2, tier: 'minor', name: 'Jaheira (if hostile)', type: 'Half-Elf (Druid)',
-    portrait: { x:50, y: 15, zoom: 1.4 },
+    portrait: { x:35, y: 35, zoom: 1.8 },
     icon: '🌿', location: 'Last Light Inn',
     optional: true,
     desc: "A legendary character from BG1 & BG2. Only hostile if you make specific bad choices at the inn. She's an extremely capable high-level druid. You really, really want her as an ally instead.",
@@ -236,7 +236,7 @@ export const BOSSES = [
   },
   {
     id: 'zrell', act: 2, tier: 'minor', name: "Z'rell", type: 'Half-Orc (Cultist Commander)',
-    portrait: { x:50, y: 15, zoom: 1.4 },
+    portrait: { x:59, y: 65, zoom: 2.2 },
     icon: '🏰', location: 'Moonrise Towers',
     optional: true,
     desc: 'The Absolute cultist commander running Moonrise Towers in Ketheric\'s absence. She\'s powerful in her own right and commands substantial forces. Part of the assault on Moonrise Towers.',
@@ -244,7 +244,7 @@ export const BOSSES = [
   },
   {
     id: 'tskaan', act: 2, tier: 'minor', name: "Ch'r'ai Tska'an", type: 'Githyanki',
-    portrait: { x:50, y: 15, zoom: 1.4 },
+    portrait: { x:70, y: 30, zoom: 1.8 },
     icon: '⚡', location: 'Shadow-Cursed Lands — ambush encounter',
     optional: true,
     desc: 'A githyanki inquisitor who ambushes the party in the shadow lands. Serves Vlaakith and represents the githyanki threat that follows you out of the crèche.',
