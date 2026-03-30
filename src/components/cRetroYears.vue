@@ -97,10 +97,7 @@
                       </span>
                       <span v-if="consoleItem.playerWins.length" class="badge bg-warning text-dark">
                         <i class="bi bi-trophy-fill me-1"></i>
-                        Winner: {{ consoleItem.playerWins[0].player }} ({{
-                          consoleItem.playerWins[0].wins
-                        }}
-                        win{{ consoleItem.playerWins[0].wins !== 1 ? 's' : '' }})
+                        Winner: {{ consoleItem.playerWins[0].player }}
                       </span>
                     </div>
 
