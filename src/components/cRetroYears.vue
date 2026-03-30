@@ -84,7 +84,7 @@
               </h5>
               <div class="row g-3">
                 <div
-                  v-for="consoleItem in year.consolesPlayed"
+                  v-for="(consoleItem, cIdx) in year.consolesPlayed"
                   :key="consoleItem.consoleName"
                   :class="winnerColClass(year.consolesPlayed.length)"
                 >
@@ -101,7 +101,7 @@
                       </span>
                     </div>
 
-                    <ul class="list-unstyled mb-0 small mt-auto">
+                    <ul class="list-unstyled mb-0 small">
                       <li
                         v-for="win in consoleItem.playerWins"
                         :key="win.player"
@@ -126,10 +126,66 @@
                           {{ win.wins }}
                         </span>
                       </li>
-                      <li v-if="!consoleItem.playerWins.length" class="text-muted italic">
-                        No Data
-                      </li>
                     </ul>
+
+                    <div class="mt-3">
+                      <button
+                        class="btn btn-sm btn-outline-secondary w-100 text-start d-flex justify-content-between align-items-center"
+                        @click="toggleGames(year.yearNumber, consoleItem.consoleName)"
+                        type="button"
+                      >
+                        <span><i class="bi bi-collection-play me-2"></i>Game List</span>
+                        <i
+                          class="bi"
+                          :class="
+                            isGamesOpen(year.yearNumber, consoleItem.consoleName)
+                              ? 'bi-chevron-up'
+                              : 'bi-chevron-down'
+                          "
+                        ></i>
+                      </button>
+
+                      <div
+                        class="games-list-dropdown mt-2"
+                        v-if="isGamesOpen(year.yearNumber, consoleItem.consoleName)"
+                      >
+                        <div class="table-responsive">
+                          <table
+                            class="table table-sm table-dark table-hover mb-0"
+                            style="font-size: 0.8rem"
+                          >
+                            <thead>
+                              <tr>
+                                <th>Game</th>
+                                <th>Winner</th>
+                                <th>Scores</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr
+                                v-for="game in getGamesByConsole(
+                                  year.yearNumber,
+                                  consoleItem.consoleName,
+                                )"
+                                :key="game.gameName"
+                              >
+                                <td>{{ game.gameName }}</td>
+                                <td class="text-primary">{{ game.winner }}</td>
+                                <td>
+                                  <div
+                                    v-for="score in game.scores"
+                                    :key="score.player"
+                                    class="x-small"
+                                  >
+                                    {{ score.player }}: {{ score.points }}
+                                  </div>
+                                </td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -142,19 +198,29 @@
 </template>
 
 <script>
-import { computed } from 'vue'
+import { computed, ref } from 'vue'
 
 const pastYearModules = import.meta.glob('../assets/endofyear*.json', { eager: true })
 
 export default {
   name: 'cRetroYears',
   setup() {
-    // Dynamic column sizing logic
+    const openGames = ref({}) // Tracks toggled state: { "2024-NES": true }
+
     const winnerColClass = (num) => {
       if (num === 1) return 'col-12'
       if (num === 2) return 'col-md-6'
       if (num === 3) return 'col-md-4'
       return 'col-md-3 col-sm-6'
+    }
+
+    const toggleGames = (year, consoleName) => {
+      const key = `${year}-${consoleName}`
+      openGames.value[key] = !openGames.value[key]
+    }
+
+    const isGamesOpen = (year, consoleName) => {
+      return !!openGames.value[`${year}-${consoleName}`]
     }
 
     const processStandingsData = (data) => {
@@ -215,7 +281,6 @@ export default {
       const consolesPlayed = consolesPlayedRaw
         .map((c) => ({
           consoleName: c.ConsoleName || c.consoleName,
-          gamesPlayedCount: c.GamesPlayedCount ?? c.gamesPlayedCount ?? 0,
           playerWins: (c.PlayerWins || c.playerWins || [])
             .map((pw) => ({
               player: (pw.Player || pw.player || '').trim(),
@@ -229,6 +294,7 @@ export default {
         yearWinner: finalStandings[0]?.player || 'Unknown',
         finalStandings,
         consolesPlayed,
+        rawResults, // Kept for the getGamesByConsole helper
       }
     }
 
@@ -248,77 +314,60 @@ export default {
       return years.sort((a, b) => b.yearNumber - a.yearNumber)
     })
 
-    return { pastYears, winnerColClass }
+    const getGamesByConsole = (yearNum, consoleName) => {
+      const yearData = pastYears.value.find((y) => y.yearNumber === yearNum)
+      if (!yearData) return []
+      return yearData.rawResults
+        .filter((g) => (g.Console || g.console) === consoleName)
+        .map((g) => {
+          const scores = g.Scores || g.scores || []
+          const max = Math.max(...scores.map((s) => s.Points ?? s.points ?? 0))
+          const winner = scores.find((s) => (s.Points ?? s.points) === max)
+          return {
+            gameName: g.GameName || g.gameName,
+            winner: winner ? winner.Player || winner.player : 'N/A',
+            scores: scores.map((s) => ({
+              player: s.Player || s.player,
+              points: s.Points ?? s.points,
+            })),
+          }
+        })
+    }
+
+    return {
+      pastYears,
+      winnerColClass,
+      toggleGames,
+      isGamesOpen,
+      getGamesByConsole,
+    }
   },
 }
 </script>
+
 <style scoped>
-/* Mobile-friendly adjustments for cRetroYears */
 .c-retro-years {
   padding: 1rem;
+  overflow-x: hidden;
 }
-
-/* Accordion and table tweaks */
-.accordion-body {
-  padding: 1rem;
+.bg-darker {
+  background-color: #121212;
+}
+.bg-console-card {
+  background-color: #1e1e1e;
+}
+.x-small {
+  font-size: 0.75rem;
 }
 
 @media (max-width: 767.98px) {
-  .c-retro-years {
-    padding: 0.5rem 0.25rem;
-  }
-  .accordion-body {
-    padding: 0.5rem 0.25rem;
-  }
   .accordion-button {
-    font-size: 1.1rem;
     flex-direction: column;
     align-items: flex-start;
-    gap: 0.5rem;
-    padding: 0.75rem 0.5rem;
-  }
-  .retro-year-title {
-    font-size: 1.2rem !important;
   }
   .badge {
-    font-size: 1rem !important;
-    padding: 0.5em 1em !important;
+    margin-top: 0.5rem;
+    margin-left: 0 !important;
   }
-  .table-responsive {
-    overflow-x: auto;
-  }
-  .table th,
-  .table td {
-    padding: 0.4rem 0.3rem !important;
-    font-size: 0.95rem;
-  }
-  .row.g-3 {
-    --bs-gutter-x: 0.5rem;
-    --bs-gutter-y: 0.5rem;
-  }
-  .p-3 {
-    padding: 0.75rem !important;
-  }
-}
-
-/* Make table scrollable on small screens */
-.table-responsive {
-  overflow-x: auto;
-}
-
-/* Winner by Console cards: stack vertically on mobile */
-@media (max-width: 575.98px) {
-  .col-md-6,
-  .col-md-4,
-  .col-md-3,
-  .col-sm-6 {
-    flex: 0 0 100%;
-    max-width: 100%;
-  }
-}
-
-/* Prevent horizontal overflow */
-.c-retro-years {
-  overflow-x: hidden;
 }
 </style>
