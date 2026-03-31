@@ -24,7 +24,13 @@
               <i class="bi bi-calendar3 me-2"></i>Year {{ year.yearNumber }}
             </span>
             <span class="badge bg-warning text-dark ms-3 fs-5 px-4 py-2 rounded-pill shadow">
-              <i class="bi bi-trophy-fill me-1"></i> Winner: {{ year.yearWinner }}
+              <i class="bi bi-trophy-fill me-1"></i>
+              <template v-if="Array.isArray(year.yearWinner) && year.yearWinner.length > 1">
+                Winners: {{ year.yearWinner.join(', ') }}
+              </template>
+              <template v-else>
+                Winner: {{ Array.isArray(year.yearWinner) ? year.yearWinner[0] : year.yearWinner }}
+              </template>
             </span>
           </button>
         </h2>
@@ -290,8 +296,17 @@ export default {
         }))
         .sort((a, b) => a.consoleName.localeCompare(b.consoleName))
 
+      // Find all players tied for first place
+      let yearWinner = 'Unknown'
+      if (finalStandings.length > 0) {
+        const topPoints = finalStandings[0].totalPoints
+        const winners = finalStandings
+          .filter((s) => s.totalPoints === topPoints)
+          .map((s) => s.player)
+        yearWinner = winners.length > 1 ? winners : winners[0]
+      }
       return {
-        yearWinner: finalStandings[0]?.player || 'Unknown',
+        yearWinner,
         finalStandings,
         consolesPlayed,
         rawResults, // Kept for the getGamesByConsole helper
