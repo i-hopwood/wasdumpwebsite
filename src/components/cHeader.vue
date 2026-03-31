@@ -1,13 +1,18 @@
 <template>
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top shadow-sm">
     <div class="container">
-      <a class="navbar-brand py-0" href="#">
-
+      <RouterLink class="navbar-brand py-0" to="/">
         <span class="text-white">WAS</span><span class="text-warning">DUMP</span>
-
-      </a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
-        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      </RouterLink>
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -22,7 +27,13 @@
             <a class="nav-link" href="#RecentVideos">Recent Videos</a>
           </li>
           <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <a
+              class="nav-link dropdown-toggle"
+              href="#"
+              role="button"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
               Pass and Play
             </a>
             <ul class="dropdown-menu dropdown-menu-dark">
@@ -46,11 +57,20 @@
           </li>
         </ul>
         <div class="d-flex align-items-center">
-          <a href="https://www.youtube.com/@WASDump" target="_blank" class="nav-link text-danger fs-4 me-3"
-            title="YouTube">
+          <a
+            href="https://www.youtube.com/@WASDump"
+            target="_blank"
+            class="nav-link text-danger fs-4 me-3"
+            title="YouTube"
+          >
             <i class="bi bi-youtube"></i>
           </a>
-          <a href="https://www.twitch.tv/wasdump" target="_blank" class="nav-link text-primary fs-4" title="Twitch">
+          <a
+            href="https://www.twitch.tv/wasdump"
+            target="_blank"
+            class="nav-link text-primary fs-4"
+            title="Twitch"
+          >
             <i class="bi bi-twitch"></i>
           </a>
         </div>
@@ -61,7 +81,7 @@
 
 <script>
 export default {
-  name: 'cHeader'
+  name: 'cHeader',
 }
 </script>
 
