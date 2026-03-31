@@ -7,29 +7,16 @@
 
       <div class="field-group">
         <label class="field-label" for="player-name">Your Name</label>
-        <input
-          class="field-input"
-          id="player-name"
-          v-model="playerName"
-          type="text"
-          placeholder="e.g. Thorin Oakenshield"
-          maxlength="24"
-          autocomplete="off"
-        />
+        <input class="field-input" id="player-name" v-model="playerName" type="text"
+          placeholder="e.g. Thorin Oakenshield" maxlength="24" autocomplete="off" />
       </div>
 
       <div class="field-group">
         <label class="field-label">Dice Color</label>
         <div class="color-grid">
-          <div
-            v-for="(c, i) in COLORS"
-            :key="i"
-            class="color-swatch"
-            :class="{ selected: selectedColor.name === c.name }"
-            :style="{ background: c.hex }"
-            :title="c.name"
-            @click="selectedColor = c"
-          />
+          <div v-for="(c, i) in COLORS" :key="i" class="color-swatch"
+            :class="{ selected: selectedColor.name === c.name }" :style="{ background: c.hex }" :title="c.name"
+            @click="selectedColor = c" />
         </div>
       </div>
 
@@ -37,14 +24,8 @@
         <label class="field-label" for="session-id">
           Session ID <span class="session-id-hint">(for OBS URL)</span>
         </label>
-        <input
-          class="field-input"
-          id="session-id"
-          v-model="sessionId"
-          type="text"
-          placeholder="e.g. player1"
-          autocomplete="off"
-        />
+        <input class="field-input" id="session-id" v-model="sessionId" type="text" placeholder="e.g. player1"
+          autocomplete="off" />
         <div class="session-hint">OBS URL: ?id=player1&amp;name=Thorin&amp;color=Sapphire</div>
       </div>
 
@@ -55,18 +36,9 @@
     <div v-show="isLaunched" class="roller-container" :class="{ 'nat1-shake': isNat1Shaking }">
       <div class="player-nameplate">{{ currentName || 'Adventurer' }}</div>
 
-      <div
-        class="dice-wrap"
-        :class="{ rolling: isRolling }"
-        :style="{ '--dice-color': selectedColor.hex }"
-        @click="doRoll"
-      >
-        <svg
-          ref="diceSvg"
-          class="dice-svg"
-          viewBox="0 0 200 200"
-          xmlns="http://www.w3.org/2000/svg"
-        >
+      <div class="dice-wrap" :class="{ rolling: isRolling }" :style="{ '--dice-color': selectedColor.hex }"
+        @click="doRoll">
+        <svg ref="diceSvg" class="dice-svg" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
           <polygon class="dice-face-fill" points="100,10 145,52 100,75 55,52" />
           <polygon class="dice-face-dark" points="55,52 100,75 70,118 22,80" />
           <polygon class="dice-face-mid" points="145,52 178,80 130,118 100,75" />
@@ -86,23 +58,16 @@
         </svg>
 
         <!-- Nat 20 sparkle rings -->
-        <div
-          v-for="ring in sparkleRings"
-          :key="ring.id"
-          class="sparkle-ring"
-          :style="{ animationDelay: ring.delay + 's' }"
-        />
+        <div v-for="ring in sparkleRings" :key="ring.id" class="sparkle-ring"
+          :style="{ animationDelay: ring.delay + 's' }" />
       </div>
 
       <div class="result-display">
-        <div
-          class="result-number"
-          :class="{
-            visible: resultVisible,
-            nat20: lastRoll === 20,
-            nat1: lastRoll === 1,
-          }"
-        >
+        <div class="result-number" :class="{
+          visible: resultVisible,
+          nat20: lastRoll === 20,
+          nat1: lastRoll === 1,
+        }">
           {{ lastRoll ?? '—' }}
         </div>
         <div class="result-label" :class="{ visible: resultVisible }">{{ resultLabel }}</div>
@@ -153,6 +118,15 @@ const sparkleRings = ref([])
 let flickInterval = null
 let ringIdCounter = 0
 
+// ── BROADCAST CHANNEL (replaces localStorage — works with OBS) ──
+const channel = ref(null)
+
+function openChannel(id) {
+  if (channel.value) channel.value.close()
+  channel.value = new BroadcastChannel('d20_' + id)
+  channel.value.onmessage = (e) => onRollReceived(e.data)
+}
+
 // ── INIT from URL params ──
 onMounted(() => {
   const urlName = route.query.name
@@ -168,16 +142,16 @@ onMounted(() => {
     if (match) selectedColor.value = match
   }
 
-  // Auto-launch if name + id provided (OBS direct-load)
-  if (urlName && urlId) {
+  // Auto-launch if id or name provided (OBS direct-load, skips setup screen)
+  if (urlId || urlName) {
+    if (!playerName.value) playerName.value = urlName || 'Player'
+    if (!sessionId.value) sessionId.value = urlId || 'obs'
     launchRoller()
   }
-
-  window.addEventListener('storage', onStorageEvent)
 })
 
 onUnmounted(() => {
-  window.removeEventListener('storage', onStorageEvent)
+  channel.value?.close()
   if (flickInterval) clearInterval(flickInterval)
 })
 
@@ -193,6 +167,9 @@ function beginRolling() {
 function launchRoller() {
   currentName.value = playerName.value.trim() || 'Adventurer'
   isLaunched.value = true
+
+  // Open the broadcast channel keyed to this session
+  openChannel(sessionId.value)
 
   // Update URL for OBS bookmarking
   router.replace({
@@ -234,28 +211,18 @@ function doRoll() {
       resultLabel.value = '💀 CRITICAL FAIL'
       setTimeout(() => {
         isNat1Shaking.value = true
-        setTimeout(() => {
-          isNat1Shaking.value = false
-        }, 600)
+        setTimeout(() => { isNat1Shaking.value = false }, 600)
       }, 10)
     } else {
       resultLabel.value = 'Roll Result'
     }
 
-    // Broadcast to OBS overlay via localStorage
-    try {
-      localStorage.setItem(
-        'd20_roll_' + sessionId.value,
-        JSON.stringify({
-          name: currentName.value,
-          value: final,
-          color: selectedColor.value.hex,
-          ts: Date.now(),
-        }),
-      )
-    } catch (e) {
-      /* storage blocked */
-    }
+    // ── Broadcast to OBS browser source via BroadcastChannel ──
+    channel.value?.postMessage({
+      name: currentName.value,
+      value: final,
+      color: selectedColor.value.hex,
+    })
   }, 1450)
 }
 
@@ -265,41 +232,46 @@ function spawnSparkle() {
     const id = ++ringIdCounter
     sparkleRings.value.push({ id, delay: i * 0.15 })
     setTimeout(
-      () => {
-        sparkleRings.value = sparkleRings.value.filter((r) => r.id !== id)
-      },
+      () => { sparkleRings.value = sparkleRings.value.filter((r) => r.id !== id) },
       1000 + i * 150,
     )
   }
 }
 
-// ── CROSS-WINDOW SYNC (OBS overlay ← controller tab) ──
-function onStorageEvent(e) {
-  if (!sessionId.value) return
-  if (e.key !== 'd20_roll_' + sessionId.value) return
-  try {
-    const data = JSON.parse(e.newValue)
-    if (!data) return
+// ── RECEIVE ROLL from another tab (OBS overlay listening to controller tab) ──
+function onRollReceived(data) {
+  if (!data) return
 
-    const match = COLORS.find((c) => c.hex === data.color)
-    if (match) selectedColor.value = match
+  const match = COLORS.find((c) => c.hex === data.color)
+  if (match) selectedColor.value = match
+  currentName.value = data.name
+  resultVisible.value = false
+  sparkleRings.value = []
 
-    currentName.value = data.name
-    lastRoll.value = data.value
-    tickerNumber.value = data.value
-    resultVisible.value = true
+  // Play the full animation in the OBS window too
+  isRolling.value = true
+  let ticks = 0
+  const flick = setInterval(() => {
+    tickerNumber.value = Math.ceil(Math.random() * 20)
+    if (++ticks >= 17) {
+      clearInterval(flick)
+      tickerNumber.value = data.value
+      lastRoll.value = data.value
+      resultVisible.value = true
+      isRolling.value = false
 
-    if (data.value === 20) {
-      resultLabel.value = '⚡ NATURAL 20!'
-      spawnSparkle()
-    } else if (data.value === 1) {
-      resultLabel.value = '💀 CRITICAL FAIL'
-    } else {
-      resultLabel.value = 'Roll Result'
+      if (data.value === 20) {
+        resultLabel.value = '⚡ NATURAL 20!'
+        spawnSparkle()
+      } else if (data.value === 1) {
+        resultLabel.value = '💀 CRITICAL FAIL'
+        isNat1Shaking.value = true
+        setTimeout(() => { isNat1Shaking.value = false }, 600)
+      } else {
+        resultLabel.value = 'Roll Result'
+      }
     }
-  } catch (e) {
-    /* malformed */
-  }
+  }, 80)
 }
 </script>
 
@@ -339,7 +311,6 @@ function onStorageEvent(e) {
   overflow: hidden;
 }
 
-/* crosshatch texture */
 .roller-container::before {
   content: '';
   position: absolute;
@@ -404,10 +375,9 @@ function onStorageEvent(e) {
   font-size: 14px;
   letter-spacing: 1px;
   outline: none;
-  transition:
-    border-color 0.2s,
-    box-shadow 0.2s;
+  transition: border-color 0.2s, box-shadow 0.2s;
 }
+
 .field-input:focus {
   border-color: var(--gold);
   box-shadow: 0 0 12px rgba(201, 146, 42, 0.25);
@@ -420,7 +390,6 @@ function onStorageEvent(e) {
   margin-top: 6px;
 }
 
-/* Color swatches */
 .color-grid {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
@@ -433,14 +402,13 @@ function onStorageEvent(e) {
   border-radius: 6px;
   border: 2px solid transparent;
   cursor: pointer;
-  transition:
-    transform 0.15s,
-    border-color 0.15s,
-    box-shadow 0.15s;
+  transition: transform 0.15s, border-color 0.15s, box-shadow 0.15s;
 }
+
 .color-swatch:hover {
   transform: scale(1.1);
 }
+
 .color-swatch.selected {
   border-color: var(--gold-bright);
   box-shadow: 0 0 10px var(--glow);
@@ -461,20 +429,19 @@ function onStorageEvent(e) {
   letter-spacing: 3px;
   text-transform: uppercase;
   cursor: pointer;
-  transition:
-    box-shadow 0.2s,
-    filter 0.2s;
+  transition: box-shadow 0.2s, filter 0.2s;
 }
+
 .btn-begin:hover {
   box-shadow: 0 0 24px var(--glow);
   filter: brightness(1.15);
 }
+
 .btn-begin:active {
   filter: brightness(0.9);
 }
 
 /* ── ROLLER SCREEN ── */
-#roller-screen,
 .roller-container:not(.setup-screen) {
   display: flex;
   flex-direction: column;
@@ -511,24 +478,27 @@ function onStorageEvent(e) {
   transition: filter 0.3s;
 }
 
-/* SVG face fills use CSS vars set on .dice-wrap */
 .dice-face-fill {
   fill: var(--dice-color);
   transition: fill 0.4s;
 }
+
 .dice-face-dark {
   fill: color-mix(in srgb, var(--dice-color) 60%, #000);
   transition: fill 0.4s;
 }
+
 .dice-face-mid {
   fill: color-mix(in srgb, var(--dice-color) 80%, #000);
   transition: fill 0.4s;
 }
+
 .dice-edge {
   stroke: rgba(255, 255, 255, 0.35);
   stroke-width: 1.2;
   fill: none;
 }
+
 .dice-number {
   fill: rgba(255, 255, 255, 0.92);
   font-family: 'Cinzel', serif;
@@ -536,29 +506,35 @@ function onStorageEvent(e) {
   font-size: 40px;
 }
 
-/* Roll animation */
 @keyframes bounce-roll {
   0% {
     transform: translateY(0) rotate(0deg);
   }
+
   15% {
     transform: translateY(-30px) rotate(72deg);
   }
+
   30% {
     transform: translateY(8px) rotate(144deg);
   }
+
   45% {
     transform: translateY(-18px) rotate(216deg);
   }
+
   60% {
     transform: translateY(4px) rotate(288deg);
   }
+
   75% {
     transform: translateY(-8px) rotate(330deg);
   }
+
   88% {
     transform: translateY(2px) rotate(355deg);
   }
+
   100% {
     transform: translateY(0) rotate(360deg);
   }
@@ -569,15 +545,16 @@ function onStorageEvent(e) {
   filter: drop-shadow(0 0 28px var(--dice-color)) blur(0.5px);
 }
 
-/* Sparkle rings */
 @keyframes sparkle-out {
   0% {
     opacity: 1;
     transform: translate(-50%, -50%) scale(0);
   }
+
   60% {
     opacity: 1;
   }
+
   100% {
     opacity: 0;
     transform: translate(-50%, -50%) scale(1);
@@ -614,20 +591,19 @@ function onStorageEvent(e) {
   text-shadow: 0 0 30px var(--glow);
   opacity: 0;
   transform: scale(0.6);
-  transition:
-    opacity 0.4s ease,
-    transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  transition: opacity 0.4s ease, transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
+
 .result-number.visible {
   opacity: 1;
   transform: scale(1);
 }
+
 .result-number.nat20 {
   color: #ffd700;
-  text-shadow:
-    0 0 40px #ffd700,
-    0 0 80px #ff9900;
+  text-shadow: 0 0 40px #ffd700, 0 0 80px #ff9900;
 }
+
 .result-number.nat1 {
   color: var(--red-bright);
   text-shadow: 0 0 40px var(--red);
@@ -642,6 +618,7 @@ function onStorageEvent(e) {
   opacity: 0;
   transition: opacity 0.4s 0.2s;
 }
+
 .result-label.visible {
   opacity: 1;
 }
@@ -659,14 +636,14 @@ function onStorageEvent(e) {
   font-weight: 700;
   letter-spacing: 4px;
   cursor: pointer;
-  transition:
-    box-shadow 0.2s,
-    filter 0.2s;
+  transition: box-shadow 0.2s, filter 0.2s;
 }
+
 .roll-btn:hover {
   box-shadow: 0 0 28px rgba(201, 146, 42, 0.5);
   filter: brightness(1.2);
 }
+
 .roll-btn:disabled {
   opacity: 0.5;
   cursor: not-allowed;
@@ -676,23 +653,29 @@ function onStorageEvent(e) {
 
 /* ── NAT 1 SHAKE ── */
 @keyframes fail-shake {
+
   0%,
   100% {
     transform: translateX(0);
   }
+
   20% {
     transform: translateX(-12px);
   }
+
   40% {
     transform: translateX(12px);
   }
+
   60% {
     transform: translateX(-8px);
   }
+
   80% {
     transform: translateX(8px);
   }
 }
+
 .nat1-shake {
   animation: fail-shake 0.5s ease;
 }
