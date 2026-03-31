@@ -129,8 +129,8 @@ export const BOSSES = [
     legendary: 'Leaping Static — after being attacked, immediately fires Leaping Static that chains between multiple enemies. Group up at your peril.',
   },
   {
-    id: 'wwargaz', act: 1, tier: 'major', name: "Inquisitor W'wargaz", type: 'Githyanki',
-    portrait: { x:50, y: 15, zoom: 1.4 },
+    id: 'inquisitor', act: 1, tier: 'major', name: "Inquisitor W'wargaz", type: 'Githyanki',
+    portrait: { x:50, y: 65, zoom: 2.2 },
     icon: '🗡', location: 'Crèche Y\'llek — Rosymorn Monastery',
     optional: false,
     desc: "The Githyanki Inquisitor who wants to examine your tadpole. This is practically mandatory to advance Lae'zel's story. He's a formidable psionic warrior who will use mind-affecting abilities aggressively.",
@@ -252,15 +252,15 @@ export const BOSSES = [
   },
   {
     id: 'liriic', act: 2, tier: 'minor', name: "Prelate Lir'i'c", type: 'Githyanki',
-    portrait: { x:50, y: 15, zoom: 1.4 },
+    portrait: { x:50, y: 55, zoom: 1.8 },
     icon: '🗡', location: 'Moonrise Towers — githyanki patrol area',
     optional: true,
     desc: 'A githyanki prelate patrolling the Moonrise Towers region. Part of the larger githyanki questline pressure. A strong melee fighter.',
     legendary: '',
   },
   {
-    id: 'apostle-myrkul', act: 2, tier: 'major', name: 'Apostle of Myrkul', type: 'Undead (Necromantic Construct)',
-    portrait: { x:50, y: 15, zoom: 1.4 },
+    id: 'myrkul', act: 2, tier: 'major', name: 'Apostle of Myrkul', type: 'Undead (Necromantic Construct)',
+    portrait: { x:50, y: 15, zoom: 2.4 },
     icon: '💀', location: 'Mind Flayer Colony — beneath Moonrise Towers',
     optional: false,
     desc: 'Ketheric Thorm\'s true form when the Nightsong\'s protection is stripped away. A massive animated bone horror suffused with Myrkul\'s death magic. Second phase of the Ketheric fight. One of the most visually striking boss encounters in the game.',
@@ -268,7 +268,7 @@ export const BOSSES = [
   },
   {
     id: 'ketheric', act: 2, tier: 'major', name: 'Ketheric Thorm (Phase 1)', type: 'Undead Half-Elf (Paladin / Lich)',
-    portrait: { x:50, y: 15, zoom: 1.4 },
+    portrait: { x:25, y: 65, zoom: 1.8 },
     icon: '💀', location: 'Moonrise Towers Rooftop',
     optional: false,
     desc: 'The Act 2 final boss — an immortal fallen paladin of Myrkul who cannot be killed while the Nightsong lives. Phase 1 on the rooftop, then pursues into the mind flayer colony for Phase 2. Incredibly atmospheric fight.',
@@ -278,7 +278,7 @@ export const BOSSES = [
   // ─── ACT III ───────────────────────────────────────────────────────────────
   {
     id: 'lorroakan', act: 3, tier: 'minor', name: 'Lorroakan', type: 'Human (Wizard)',
-    portrait: { x:50, y: 15, zoom: 1.4 },
+    portrait: { x: 75, y: 15, zoom: 1.8 },
     icon: '🔮', location: 'Sorcerous Sundries — Baldur\'s Gate',
     optional: true,
     desc: 'The arrogant wizard who runs Sorcerous Sundries. He wants the Nightsong. Very squishy but surrounded by elemental sphere projections that must be destroyed to access him. A gimmick fight — destroy his orbs first.',
@@ -286,7 +286,7 @@ export const BOSSES = [
   },
   {
     id: 'nine-fingers', act: 3, tier: 'minor', name: 'Nine-Fingers Keene', type: 'Human (Rogue)',
-    portrait: { x:50, y: 15, zoom: 1.4 },
+    portrait: { x:50, y: 35, zoom: 1.4 },
     icon: '🗡', location: 'Guildhall — Baldur\'s Gate',
     optional: true,
     desc: 'The head of the Thieves\' Guild in Baldur\'s Gate. Only hostile if you make enemies of the Guild. A capable rogue fighter with plenty of backup in her own hall.',
@@ -294,7 +294,7 @@ export const BOSSES = [
   },
   {
     id: 'mystic-carrion', act: 3, tier: 'minor', name: 'Mystic Carrion', type: 'Undead (Mummy Lord)',
-    portrait: { x:50, y: 15, zoom: 1.4 },
+    portrait: { x:25, y: 15, zoom: 1.4 },
     icon: '🧟', location: 'Philgrave\'s Mansion — Baldur\'s Gate',
     optional: true,
     desc: 'An ancient mummy lord who keeps his phylacteries (organs in jars) hidden around the city. Destroying the jars permanently weakens him. If you fight him without destroying the jars, he just reforms.',
@@ -302,7 +302,7 @@ export const BOSSES = [
   },
   {
     id: 'viconia', act: 3, tier: 'major', name: 'Viconia DeVir', type: 'Drow (Cleric of Shar)',
-    portrait: { x:50, y: 15, zoom: 1.4 },
+    portrait: { x:85, y: 0, zoom: 1.2 },
     icon: '🌑', location: 'House of Grief — Baldur\'s Gate',
     optional: true,
     desc: 'Another legendary BG1/BG2 character — now High Priestess of a massive Sharran cult. She has a Globe of Invulnerability. The fight takes place in her war room with an army of Sharrans. Heavily suggested to bring Globe of Invulnerability scrolls.',
@@ -310,7 +310,7 @@ export const BOSSES = [
   },
   {
     id: 'cazador', act: 3, tier: 'major', name: 'Cazador Szarr', type: 'Undead (Vampire Lord)',
-    portrait: { x:50, y: 15, zoom: 1.4 },
+    portrait: { x:50, y: 55, zoom: 1.8 },
     icon: '🧛', location: 'Szarr Palace — Baldur\'s Gate',
     optional: true,
     desc: "Astarion's cruel master. A vampire lord in the middle of an ancient ritual to ascend to a vampire god. Fights in Mist Form, has coffins to hide in, and a ritual circle that's very dangerous. One of the most story-significant fights in the game.",
@@ -318,7 +318,7 @@ export const BOSSES = [
   },
   {
     id: 'ansur', act: 3, tier: 'major', name: 'Ansur', type: 'Undead Dragon',
-    portrait: { x:50, y: 15, zoom: 1.4 },
+    portrait: { x:25, y: 55, zoom: 1.4 },
     icon: '🐉', location: 'Wyrm\'s Rock — Dragon\'s Lair beneath',
     optional: true,
     desc: "The undead dragon who once partnered with Baldur's Gate's legendary ruler Balduran. Now a massive lightning-breathing corpse. Possibly the hardest non-final boss in the entire game. No cheese, just pain. Bring lightning immunity.",
@@ -334,7 +334,7 @@ export const BOSSES = [
   },
   {
     id: 'sarevok', act: 3, tier: 'major', name: 'Sarevok Anchev', type: 'Human (Bhaal\'s Champion)',
-    portrait: { x:50, y: 15, zoom: 1.4 },
+    portrait: { x:50, y: 35, zoom: 1.8 },
     icon: '💀', location: 'The Temple of Bhaal — Baldur\'s Gate',
     optional: true,
     desc: 'The iconic villain of the original Baldur\'s Gate, now serving as Bhaal\'s chosen executioner. One of the hardest fights in Act 3 — he has enormous HP, hits like a truck, and has cultist backup. An incredibly satisfying boss for series veterans.',
@@ -342,7 +342,7 @@ export const BOSSES = [
   },
   {
     id: 'gortash', act: 3, tier: 'major', name: 'Enver Gortash', type: 'Human (Bane Thrall / Tactician)',
-    portrait: { x:50, y: 15, zoom: 1.4 },
+    portrait: { x: 27, y: 25, zoom: 1.4 },
     icon: '⚙️', location: 'Wyrm\'s Rock Fortress Throne Room',
     optional: false,
     desc: 'The Archduke of Baldur\'s Gate, master of the Steel Watch, and devotee of Bane. He\'s surrounded by Steel Watchers and mechanical constructs. Disable the Steel Watchers beforehand by destroying their foundry for a much easier fight.',
@@ -350,7 +350,7 @@ export const BOSSES = [
   },
   {
     id: 'orin', act: 3, tier: 'major', name: 'Orin the Red', type: 'Changeling (Bhaal\'s Chosen)',
-    portrait: { x:50, y: 15, zoom: 1.4 },
+    portrait: { x: 60, y: 35, zoom: 1.8 },
     icon: '🔪', location: 'Temple of Bhaal — Undercity',
     optional: false,
     desc: 'The murderous Chosen of Bhaal who has been shapeshifting among your companions. She has a hostage. If companions are with you she may Duel you alone; if not, she\'s flanked by Bhaal cultists. One of the best boss fights in the game — intense, personal, terrifying.',
@@ -358,7 +358,7 @@ export const BOSSES = [
   },
   {
     id: 'steel-watcher', act: 3, tier: 'minor', name: 'Steel Watcher Titan', type: 'Construct',
-    portrait: { x:50, y: 15, zoom: 1.4 },
+    portrait: { x:50, y: 25, zoom: 2.0 },
     icon: '🤖', location: 'Wyrm\'s Rock — Steel Watch Foundry / city',
     optional: true,
     desc: 'The largest of Gortash\'s clockwork soldiers. A massive construct with enormous HP and devastating melee attacks. The Foundry assault culminates in fighting one. Destroying the Foundry before fighting Gortash removes all Steel Watchers from the fight.',
@@ -366,7 +366,7 @@ export const BOSSES = [
   },
   {
     id: 'aelis', act: 3, tier: 'minor', name: 'Aelis Siryasius', type: 'Drow Half-Elf',
-    portrait: { x:50, y: 15, zoom: 1.4 },
+    portrait: { x: 35, y: 15, zoom: 1.2 },
     icon: '🔱', location: 'Baldur\'s Gate — related to companion quests',
     optional: true,
     desc: 'A drow connected to some of the companion storylines in Act 3. An optional encounter that resolves a specific questline.',
@@ -374,7 +374,7 @@ export const BOSSES = [
   },
   {
     id: 'harrak', act: 3, tier: 'minor', name: "Ch'r'ai Har'rak", type: 'Githyanki',
-    portrait: { x:50, y: 15, zoom: 1.4 },
+    portrait: { x:65, y: 55, zoom: 3 },
     icon: '🗡', location: 'Baldur\'s Gate — Githyanki questline',
     optional: true,
     desc: "A githyanki commander representing Vlaakith's forces in Baldur's Gate. Part of the ongoing githyanki questline that began at the crèche.",
@@ -382,7 +382,7 @@ export const BOSSES = [
   },
   {
     id: 'dame-aylin', act: 3, tier: 'minor', name: 'Dame Aylin (if hostile)', type: 'Aasimar',
-    portrait: { x:50, y: 15, zoom: 1.4 },
+    portrait: { x:50, y: 45, zoom: 1.4 },
     icon: '✨', location: 'Various — companion questline',
     optional: true,
     desc: "Isobel's celestial partner, the Night Song herself. Only hostile under very specific circumstances. A celestial warrior of extraordinary power. You desperately want her as an ally.",
@@ -390,7 +390,7 @@ export const BOSSES = [
   },
   {
     id: 'netherbrain', act: 3, tier: 'major', name: 'The Netherbrain', type: 'Elder Brain',
-    portrait: { x:50, y: 15, zoom: 1.4 },
+    portrait: { x:85, y: 15, zoom: 1.4 },
     icon: '🧠', location: 'Baldur\'s Gate — The Elder Brain Vessel',
     optional: false,
     desc: 'The final boss. A vast Elder Brain made all-powerful by the Crown of Karsus. It floats above Baldur\'s Gate and you fight it across multiple platforms while its tentacles and dominated thralls assault you. Everything leads to this.',
@@ -398,7 +398,7 @@ export const BOSSES = [
   },
   {
     id: 'raphael', act: 3, tier: 'major', name: 'Raphael', type: 'Fiend (Cambion)',
-    portrait: { x:50, y: 15, zoom: 1.4 },
+    portrait: { x:50, y: 35, zoom: 1.4 },
     icon: '👿', location: 'House of Hope — Hells',
     optional: true,
     desc: "The devil who's been dangling help in front of you the whole game. His home is a gorgeous Art Deco hellscape. He transforms into an Ascended Fiend mid-fight. The arena has pillars you must keep alive (they power your abilities). The opera song that plays is iconic.",
