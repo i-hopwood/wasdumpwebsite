@@ -65,7 +65,11 @@
                       >
                         #{{ standing.rank }}
                         <i
-                          v-if="standing.rank === 1"
+                          v-if="
+                            Array.isArray(year.yearWinner)
+                              ? year.yearWinner.includes(standing.player)
+                              : standing.rank === 1
+                          "
                           class="bi bi-star-fill text-warning ms-1 small"
                         ></i>
                       </td>
@@ -282,7 +286,21 @@ export default {
       })
 
       finalStandings.sort((a, b) => b.totalPoints - a.totalPoints)
-      finalStandings = finalStandings.map((s, i) => ({ ...s, rank: i + 1 }))
+      // Assign ranks with ties (same points = same rank)
+      let lastPoints = null
+      let lastRank = 0
+      let skip = 0
+      finalStandings = finalStandings.map((s, i) => {
+        if (lastPoints === s.totalPoints) {
+          skip++
+          return { ...s, rank: lastRank }
+        } else {
+          lastRank = i + 1
+          lastPoints = s.totalPoints
+          skip = 0
+          return { ...s, rank: lastRank }
+        }
+      })
 
       const consolesPlayed = consolesPlayedRaw
         .map((c) => ({
