@@ -1,6 +1,5 @@
 <template>
   <div class="roller-root">
-    <!-- SETUP SCREEN -->
     <div v-if="!isLaunched" class="roller-container setup-screen">
       <div class="setup-title">⚔ D20 Roller</div>
       <div class="setup-sub">Fate Awaits</div>
@@ -32,7 +31,6 @@
       <button class="btn-begin" @click="beginRolling">⚡ Begin Rolling</button>
     </div>
 
-    <!-- ROLLER SCREEN -->
     <div v-show="isLaunched" class="roller-container" :class="{ 'nat1-shake': isNat1Shaking }">
       <div class="player-nameplate">{{ currentName || 'Adventurer' }}</div>
 
@@ -57,7 +55,6 @@
           </text>
         </svg>
 
-        <!-- Nat 20 sparkle rings -->
         <div v-for="ring in sparkleRings" :key="ring.id" class="sparkle-ring"
           :style="{ animationDelay: ring.delay + 's' }" />
       </div>
@@ -82,6 +79,7 @@
 <script setup>
 import { ref, onMounted, onUnmounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
+import { createClient } from '@supabase/supabase-js'
 
 // ── COLORS ──
 const COLORS = [
@@ -96,6 +94,12 @@ const COLORS = [
   { name: 'Teal', hex: '#16a085' },
   { name: 'Onyx', hex: '#1a1a2e' },
 ]
+
+// ── SUPABASE CONFIG ──
+const supabase = createClient(
+  import.meta.env.VITE_SUPABASE_URL,
+  import.meta.env.VITE_SUPABASE_ANON_KEY
+)
 
 const route = useRoute()
 const router = useRouter()
@@ -117,17 +121,9 @@ const sparkleRings = ref([])
 
 let flickInterval = null
 let ringIdCounter = 0
+let realtimeChannel = null
 
-// ── BROADCAST CHANNEL (replaces localStorage — works with OBS) ──
-const channel = ref(null)
-
-function openChannel(id) {
-  if (channel.value) channel.value.close()
-  channel.value = new BroadcastChannel('d20_' + id)
-  channel.value.onmessage = (e) => onRollReceived(e.data)
-}
-
-// ── INIT from URL params ──
+// ── INIT ──
 onMounted(() => {
   const urlName = route.query.name
   const urlColor = route.query.color
@@ -142,7 +138,6 @@ onMounted(() => {
     if (match) selectedColor.value = match
   }
 
-  // Auto-launch if id or name provided (OBS direct-load, skips setup screen)
   if (urlId || urlName) {
     if (!playerName.value) playerName.value = urlName || 'Player'
     if (!sessionId.value) sessionId.value = urlId || 'obs'
@@ -151,7 +146,7 @@ onMounted(() => {
 })
 
 onUnmounted(() => {
-  channel.value?.close()
+  if (realtimeChannel) realtimeChannel.unsubscribe()
   if (flickInterval) clearInterval(flickInterval)
 })
 
@@ -168,10 +163,20 @@ function launchRoller() {
   currentName.value = playerName.value.trim() || 'Adventurer'
   isLaunched.value = true
 
-  // Open the broadcast channel keyed to this session
-  openChannel(sessionId.value)
+  // Setup Supabase Realtime Channel
+  realtimeChannel = supabase.channel('d20_' + sessionId.value)
 
-  // Update URL for OBS bookmarking
+  realtimeChannel
+    .on('broadcast', { event: 'dice-roll' }, ({ payload }) => {
+      // Synchronize color if the sender used a different one
+      const match = COLORS.find((c) => c.hex === payload.color)
+      if (match) selectedColor.value = match
+
+      currentName.value = payload.name
+      handleAnimation(payload.value)
+    })
+    .subscribe()
+
   router.replace({
     query: {
       id: sessionId.value,
@@ -184,12 +189,29 @@ function launchRoller() {
 // ── ROLL ──
 function doRoll() {
   if (isRolling.value) return
+  const final = Math.ceil(Math.random() * 20)
+
+  // Broadcast the roll to others before starting local animation
+  if (realtimeChannel) {
+    realtimeChannel.send({
+      type: 'broadcast',
+      event: 'dice-roll',
+      payload: {
+        name: currentName.value,
+        value: final,
+        color: selectedColor.value.hex,
+      },
+    })
+  }
+
+  handleAnimation(final)
+}
+
+function handleAnimation(final) {
   isRolling.value = true
   resultVisible.value = false
   isNat1Shaking.value = false
   sparkleRings.value = []
-
-  const final = Math.ceil(Math.random() * 20)
 
   flickInterval = setInterval(() => {
     tickerNumber.value = Math.ceil(Math.random() * 20)
@@ -216,17 +238,9 @@ function doRoll() {
     } else {
       resultLabel.value = 'Roll Result'
     }
-
-    // ── Broadcast to OBS browser source via BroadcastChannel ──
-    channel.value?.postMessage({
-      name: currentName.value,
-      value: final,
-      color: selectedColor.value.hex,
-    })
   }, 1450)
 }
 
-// ── SPARKLE ──
 function spawnSparkle() {
   for (let i = 0; i < 3; i++) {
     const id = ++ringIdCounter
@@ -237,46 +251,10 @@ function spawnSparkle() {
     )
   }
 }
-
-// ── RECEIVE ROLL from another tab (OBS overlay listening to controller tab) ──
-function onRollReceived(data) {
-  if (!data) return
-
-  const match = COLORS.find((c) => c.hex === data.color)
-  if (match) selectedColor.value = match
-  currentName.value = data.name
-  resultVisible.value = false
-  sparkleRings.value = []
-
-  // Play the full animation in the OBS window too
-  isRolling.value = true
-  let ticks = 0
-  const flick = setInterval(() => {
-    tickerNumber.value = Math.ceil(Math.random() * 20)
-    if (++ticks >= 17) {
-      clearInterval(flick)
-      tickerNumber.value = data.value
-      lastRoll.value = data.value
-      resultVisible.value = true
-      isRolling.value = false
-
-      if (data.value === 20) {
-        resultLabel.value = '⚡ NATURAL 20!'
-        spawnSparkle()
-      } else if (data.value === 1) {
-        resultLabel.value = '💀 CRITICAL FAIL'
-        isNat1Shaking.value = true
-        setTimeout(() => { isNat1Shaking.value = false }, 600)
-      } else {
-        resultLabel.value = 'Roll Result'
-      }
-    }
-  }, 80)
-}
 </script>
 
 <style scoped>
-/* ── ROOT ── */
+/* [Styling remains identical to your provided styles] */
 .roller-root {
   --gold: #c9922a;
   --gold-bright: #f0c060;
@@ -289,7 +267,6 @@ function onRollReceived(data) {
   --panel: rgba(10, 6, 20, 0.88);
   --panel-border: rgba(180, 130, 60, 0.45);
   --dice-color: #4a90d9;
-
   display: flex;
   align-items: center;
   justify-content: center;
@@ -299,14 +276,11 @@ function onRollReceived(data) {
   overflow: hidden;
 }
 
-/* ── SHARED CONTAINER ── */
 .roller-container {
   background: var(--panel);
   border: 1px solid var(--panel-border);
   border-radius: 12px;
-  box-shadow:
-    0 0 60px rgba(0, 0, 0, 0.7),
-    0 0 20px var(--glow) inset;
+  box-shadow: 0 0 60px rgba(0, 0, 0, 0.7), 0 0 20px var(--glow) inset;
   position: relative;
   overflow: hidden;
 }
@@ -320,7 +294,6 @@ function onRollReceived(data) {
   opacity: 0.6;
 }
 
-/* ── SETUP SCREEN ── */
 .setup-screen {
   padding: 40px 48px;
   width: 360px;
@@ -441,7 +414,6 @@ function onRollReceived(data) {
   filter: brightness(0.9);
 }
 
-/* ── ROLLER SCREEN ── */
 .roller-container:not(.setup-screen) {
   display: flex;
   flex-direction: column;
@@ -462,7 +434,6 @@ function onRollReceived(data) {
   text-align: center;
 }
 
-/* ── DICE ── */
 .dice-wrap {
   width: 200px;
   height: 200px;
@@ -573,7 +544,6 @@ function onRollReceived(data) {
   pointer-events: none;
 }
 
-/* ── RESULT ── */
 .result-display {
   min-height: 90px;
   display: flex;
@@ -623,7 +593,6 @@ function onRollReceived(data) {
   opacity: 1;
 }
 
-/* ── ROLL BUTTON ── */
 .roll-btn {
   margin-top: 20px;
   padding: 16px 48px;
@@ -651,7 +620,6 @@ function onRollReceived(data) {
   box-shadow: none;
 }
 
-/* ── NAT 1 SHAKE ── */
 @keyframes fail-shake {
 
   0%,
@@ -680,7 +648,6 @@ function onRollReceived(data) {
   animation: fail-shake 0.5s ease;
 }
 
-/* ── SESSION BADGE ── */
 .session-badge {
   font-size: 9px;
   letter-spacing: 2px;
