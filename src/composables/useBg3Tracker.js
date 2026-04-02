@@ -12,7 +12,8 @@ export function useBg3Tracker() {
   async function loadSave() {
     if (loaded.value) return
     try {
-      const url = isDev ? `/bg3-save.json?t=${Date.now()}` : '/bg3-save.json'
+      // Cache-bust in both dev and prod so a fresh push is always picked up on refresh
+      const url = `/bg3-save.json?t=${Date.now()}`
       const res = await fetch(url)
       if (!res.ok) throw new Error(`HTTP ${res.status}`)
       const data = await res.json()
