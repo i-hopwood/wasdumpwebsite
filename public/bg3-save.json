@@ -1,5 +1,12 @@
 {
   "slain": [],
-  "missed": [],
-  "details": {}
+  "missed": [
+    "zhalk"
+  ],
+  "details": {
+    "zhalk": {
+      "player": "",
+      "date": "2026-04-02"
+    }
+  }
 }
