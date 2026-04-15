@@ -1,5 +1,7 @@
 {
-  "slain": [],
+  "slain": [
+    "gut"
+  ],
   "missed": [
     "zhalk"
   ],
@@ -7,6 +9,10 @@
     "zhalk": {
       "player": "",
       "date": "2026-04-02"
+    },
+    "gut": {
+      "player": "Elliot",
+      "date": "2026-04-15"
     }
   }
 }
