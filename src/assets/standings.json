@@ -1,6 +1,24 @@
 {
-  "Results": [],
-  "Standings": [],
+  "Results": [
+    {
+      "CompetitionId": "9b1bc826-adab-42a5-8cd8-33fac6195f77",
+      "GameName": "Super Star Wars",
+      "System": "SNES",
+      "Goal": "Most Progress",
+      "CompetionDate": "4/05/2026",
+      "IsOpen": false,
+      "Scores": [
+        { "Player": "Otto", "Points": 0, "GotBonus": false },
+        { "Player": "Elliot ", "Points": 1, "GotBonus": false },
+        { "Player": "Iain", "Points": 2, "GotBonus": false }
+      ]
+    }
+  ],
+  "Standings": [
+    { "Player": "Otto", "Points": 0, "GotBonus": false },
+    { "Player": "Elliot ", "Points": 1, "GotBonus": false },
+    { "Player": "Iain", "Points": 2, "GotBonus": false }
+  ],
   "Success": false,
   "IsUpdating": false,
   "TokenExpired": false,

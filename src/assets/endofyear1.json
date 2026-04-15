@@ -1,1 +1,516 @@
-{"EndOfYearResults":{"ConsolesPlayed":[{"ConsoleName":"SNES","GamesPlayedCount":15,"PlayerWins":[{"Player":"Elliot  Moule ","Wins":7},{"Player":"Iain Hopwood","Wins":5},{"Player":"Otto Dobretsberger","Wins":3}]},{"ConsoleName":"NES","GamesPlayedCount":14,"PlayerWins":[{"Player":"Otto Dobretsberger","Wins":9},{"Player":"Elliot  Moule ","Wins":4},{"Player":"Iain Hopwood","Wins":1}]},{"ConsoleName":"N64","GamesPlayedCount":13,"PlayerWins":[{"Player":"Iain Hopwood","Wins":7},{"Player":"Elliot  Moule ","Wins":3},{"Player":"Otto Dobretsberger","Wins":3}]}],"GamesPlayed":[{"GameName":"Superman 64","Console":"N64","CompetionDate":"3/17/2026","Scores":[{"Player":"Iain Hopwood","Points":2,"GotBonus":false},{"Player":"Elliot  Moule ","Points":1,"GotBonus":false},{"Player":"Otto Dobretsberger","Points":0,"GotBonus":false}],"Winner":"Iain Hopwood"},{"GameName":"Extreme G","Console":"N64","CompetionDate":"3/15/2026","Scores":[{"Player":"Otto Dobretsberger","Points":2,"GotBonus":false},{"Player":"Iain Hopwood","Points":1,"GotBonus":false},{"Player":"Elliot  Moule ","Points":0,"GotBonus":false}],"Winner":"Otto Dobretsberger"},{"GameName":"Paperboy","Console":"NES","CompetionDate":"3/08/2026","Scores":[{"Player":"Otto Dobretsberger","Points":2,"GotBonus":false},{"Player":"Elliot  Moule ","Points":1,"GotBonus":false},{"Player":"Iain Hopwood","Points":0,"GotBonus":false}],"Winner":"Otto Dobretsberger"},{"GameName":"Megaman 5","Console":"NES","CompetionDate":"3/01/2026","Scores":[{"Player":"Otto Dobretsberger","Points":2,"GotBonus":false},{"Player":"Elliot  Moule ","Points":1,"GotBonus":false},{"Player":"Iain Hopwood","Points":0,"GotBonus":false}],"Winner":"Otto Dobretsberger"},{"GameName":"Rampage: World Tour","Console":"N64","CompetionDate":"2/22/2026","Scores":[{"Player":"Iain Hopwood","Points":2,"GotBonus":false},{"Player":"Otto Dobretsberger","Points":1,"GotBonus":false},{"Player":"Elliot  Moule ","Points":0,"GotBonus":false}],"Winner":"Iain Hopwood"},{"GameName":"Star Wars Rogue Squadron","Console":"N64","CompetionDate":"2/15/2026","Scores":[{"Player":"Elliot  Moule ","Points":2,"GotBonus":false},{"Player":"Iain Hopwood","Points":1,"GotBonus":false},{"Player":"Otto Dobretsberger","Points":0,"GotBonus":false}],"Winner":"Elliot  Moule "},{"GameName":"Pittfighter","Console":"SNES","CompetionDate":"2/08/2026","Scores":[{"Player":"Elliot  Moule ","Points":2,"GotBonus":false},{"Player":"Iain Hopwood","Points":1,"GotBonus":false},{"Player":"Otto Dobretsberger","Points":0,"GotBonus":false}],"Winner":"Elliot  Moule "},{"GameName":"NBA Hangtime","Console":"N64","CompetionDate":"2/01/2026","Scores":[{"Player":"Elliot  Moule ","Points":2,"GotBonus":false},{"Player":"Otto Dobretsberger","Points":0,"GotBonus":false},{"Player":"Iain Hopwood","Points":0,"GotBonus":false}],"Winner":"Elliot  Moule "},{"GameName":"The Adventures of Bayou Billy","Console":"NES","CompetionDate":"1/18/2026","Scores":[{"Player":"Elliot  Moule ","Points":2,"GotBonus":false},{"Player":"Otto Dobretsberger","Points":1,"GotBonus":false},{"Player":"Iain Hopwood","Points":0,"GotBonus":false}],"Winner":"Elliot  Moule "},{"GameName":"Last Bible III","Console":"SNES","CompetionDate":"1/09/2026","Scores":[{"Player":"Iain Hopwood","Points":2,"GotBonus":false},{"Player":"Otto Dobretsberger","Points":1,"GotBonus":false},{"Player":"Elliot  Moule ","Points":0,"GotBonus":false}],"Winner":"Iain Hopwood"},{"GameName":"Jackie Chan's Action Kung Fu","Console":"NES","CompetionDate":"1/06/2026","Scores":[{"Player":"Elliot  Moule ","Points":2,"GotBonus":false},{"Player":"Otto Dobretsberger","Points":1,"GotBonus":false},{"Player":"Iain Hopwood","Points":0,"GotBonus":false}],"Winner":"Elliot  Moule "},{"GameName":"Cool World","Console":"SNES","CompetionDate":"1/04/2026","Scores":[{"Player":"Otto Dobretsberger","Points":2,"GotBonus":true},{"Player":"Iain Hopwood","Points":2,"GotBonus":true},{"Player":"Elliot  Moule ","Points":2,"GotBonus":false}],"Winner":"Elliot  Moule "},{"GameName":"BASS Master Classic","Console":"SNES","CompetionDate":"12/30/2025","Scores":[{"Player":"Otto Dobretsberger","Points":2,"GotBonus":false},{"Player":"Iain Hopwood","Points":1,"GotBonus":false},{"Player":"Elliot  Moule ","Points":0,"GotBonus":false}],"Winner":"Otto Dobretsberger"},{"GameName":"Lufia","Console":"SNES","CompetionDate":"11/28/2025","Scores":[{"Player":"Iain Hopwood","Points":2,"GotBonus":false},{"Player":"Elliot  Moule ","Points":1,"GotBonus":false},{"Player":"Otto Dobretsberger","Points":0,"GotBonus":false}],"Winner":"Iain Hopwood"},{"GameName":"Super Troll Islands","Console":"SNES","CompetionDate":"11/19/2025","Scores":[{"Player":"Elliot  Moule ","Points":2,"GotBonus":false},{"Player":"Iain Hopwood","Points":1,"GotBonus":false},{"Player":"Otto Dobretsberger","Points":0,"GotBonus":false}],"Winner":"Elliot  Moule "},{"GameName":"Olympic Summer Games","Console":"SNES","CompetionDate":"11/14/2025","Scores":[{"Player":"Elliot  Moule ","Points":2,"GotBonus":false},{"Player":"Otto Dobretsberger","Points":1,"GotBonus":false},{"Player":"Iain Hopwood","Points":0,"GotBonus":false}],"Winner":"Elliot  Moule "},{"GameName":"Secret of Evermore","Console":"SNES","CompetionDate":"11/09/2025","Scores":[{"Player":"Elliot  Moule ","Points":2,"GotBonus":false},{"Player":"Iain Hopwood","Points":1,"GotBonus":false},{"Player":"Otto Dobretsberger","Points":0,"GotBonus":false}],"Winner":"Elliot  Moule "},{"GameName":"Dragon's Lair","Console":"NES","CompetionDate":"10/31/2025","Scores":[{"Player":"Otto Dobretsberger","Points":2,"GotBonus":false},{"Player":"Elliot  Moule ","Points":1,"GotBonus":false},{"Player":"Iain Hopwood","Points":0,"GotBonus":false}],"Winner":"Otto Dobretsberger"},{"GameName":"Extreme G 2","Console":"N64","CompetionDate":"10/24/2025","Scores":[{"Player":"Otto Dobretsberger","Points":2,"GotBonus":false},{"Player":"Elliot  Moule ","Points":1,"GotBonus":false},{"Player":"Iain Hopwood","Points":0,"GotBonus":false}],"Winner":"Otto Dobretsberger"},{"GameName":"Super Mario Bros 3","Console":"NES","CompetionDate":"10/16/2025","Scores":[{"Player":"Otto Dobretsberger","Points":2,"GotBonus":false},{"Player":"Elliot  Moule ","Points":1,"GotBonus":false},{"Player":"Iain Hopwood","Points":0,"GotBonus":false}],"Winner":"Otto Dobretsberger"},{"GameName":"Prince of Persia","Console":"SNES","CompetionDate":"10/03/2025","Scores":[{"Player":"Elliot  Moule ","Points":2,"GotBonus":false},{"Player":"Otto Dobretsberger","Points":1,"GotBonus":false},{"Player":"Iain Hopwood","Points":0,"GotBonus":false}],"Winner":"Elliot  Moule "},{"GameName":"Star Wars Shadows of the Empire","Console":"N64","CompetionDate":"9/14/2025","Scores":[{"Player":"Iain Hopwood","Points":2,"GotBonus":false},{"Player":"Elliot  Moule ","Points":1,"GotBonus":false},{"Player":"Otto Dobretsberger","Points":0,"GotBonus":false}],"Winner":"Iain Hopwood"},{"GameName":"Killer Instinict","Console":"SNES","CompetionDate":"8/31/2025","Scores":[{"Player":"Otto Dobretsberger","Points":3,"GotBonus":true},{"Player":"Iain Hopwood","Points":1,"GotBonus":false},{"Player":"Elliot  Moule ","Points":0,"GotBonus":false}],"Winner":"Otto Dobretsberger"},{"GameName":"Fester's Quest","Console":"NES","CompetionDate":"8/24/2025","Scores":[{"Player":"Elliot  Moule ","Points":2,"GotBonus":false},{"Player":"Iain Hopwood","Points":1,"GotBonus":false},{"Player":"Otto Dobretsberger","Points":0,"GotBonus":false}],"Winner":"Elliot  Moule "},{"GameName":"Jaws","Console":"NES","CompetionDate":"8/17/2025","Scores":[{"Player":"Elliot  Moule ","Points":2,"GotBonus":false},{"Player":"Otto Dobretsberger","Points":1,"GotBonus":false},{"Player":"Iain Hopwood","Points":0,"GotBonus":false}],"Winner":"Elliot  Moule "},{"GameName":"Cruis'n World","Console":"N64","CompetionDate":"8/17/2025","Scores":[{"Player":"Iain Hopwood","Points":3,"GotBonus":true},{"Player":"Elliot  Moule ","Points":1,"GotBonus":false},{"Player":"Otto Dobretsberger","Points":0,"GotBonus":false}],"Winner":"Iain Hopwood"},{"GameName":"John Romero's Daikatana","Console":"N64","CompetionDate":"7/27/2025","Scores":[{"Player":"Otto Dobretsberger","Points":2,"GotBonus":false},{"Player":"Elliot  Moule ","Points":1,"GotBonus":false},{"Player":"Iain Hopwood","Points":0,"GotBonus":false}],"Winner":"Otto Dobretsberger"},{"GameName":"Starfox 64","Console":"N64","CompetionDate":"7/20/2025","Scores":[{"Player":"Iain Hopwood","Points":3,"GotBonus":true},{"Player":"Otto Dobretsberger","Points":2,"GotBonus":true},{"Player":"Elliot  Moule ","Points":0,"GotBonus":false}],"Winner":"Iain Hopwood"},{"GameName":"Metal Marines","Console":"SNES","CompetionDate":"6/29/2025","Scores":[{"Player":"Iain Hopwood","Points":2,"GotBonus":false},{"Player":"Elliot  Moule ","Points":1,"GotBonus":false},{"Player":"Otto Dobretsberger","Points":0,"GotBonus":false}],"Winner":"Iain Hopwood"},{"GameName":"Chip and Dale II","Console":"NES","CompetionDate":"6/22/2025","Scores":[{"Player":"Otto Dobretsberger","Points":2,"GotBonus":true},{"Player":"Iain Hopwood","Points":0,"GotBonus":false}],"Winner":"Otto Dobretsberger"},{"GameName":"Carmaggedon 64","Console":"N64","CompetionDate":"6/22/2025","Scores":[{"Player":"Iain Hopwood","Points":2,"GotBonus":false},{"Player":"Otto Dobretsberger","Points":1,"GotBonus":false},{"Player":"Elliot  Moule ","Points":0,"GotBonus":false}],"Winner":"Iain Hopwood"},{"GameName":"3 Ninjas Kick Back","Console":"SNES","CompetionDate":"6/01/2025","Scores":[{"Player":"Iain Hopwood","Points":2,"GotBonus":false},{"Player":"Otto Dobretsberger","Points":1,"GotBonus":false},{"Player":"Elliot  Moule ","Points":0,"GotBonus":false}],"Winner":"Iain Hopwood"},{"GameName":"Star Wars","Console":"NES","CompetionDate":"5/25/2025","Scores":[{"Player":"Otto Dobretsberger","Points":2,"GotBonus":false},{"Player":"Elliot  Moule ","Points":1,"GotBonus":false},{"Player":"Iain Hopwood","Points":0,"GotBonus":false}],"Winner":"Otto Dobretsberger"},{"GameName":"Home Alone","Console":"SNES","CompetionDate":"5/18/2025","Scores":[{"Player":"Elliot  Moule ","Points":2,"GotBonus":false},{"Player":"Otto Dobretsberger","Points":1,"GotBonus":false},{"Player":"Iain Hopwood","Points":0,"GotBonus":false}],"Winner":"Elliot  Moule "},{"GameName":"Zelda A Link to The Past","Console":"SNES","CompetionDate":"5/18/2025","Scores":[{"Player":"Iain Hopwood","Points":2,"GotBonus":false},{"Player":"Elliot  Moule ","Points":1,"GotBonus":false},{"Player":"Otto Dobretsberger","Points":0,"GotBonus":false}],"Winner":"Iain Hopwood"},{"GameName":"DuckTales","Console":"NES","CompetionDate":"5/04/2025","Scores":[{"Player":"Otto Dobretsberger","Points":3,"GotBonus":true},{"Player":"Iain Hopwood","Points":1,"GotBonus":false},{"Player":"Elliot  Moule ","Points":0,"GotBonus":false}],"Winner":"Otto Dobretsberger"},{"GameName":"Doom 64","Console":"N64","CompetionDate":"4/27/2025","Scores":[{"Player":"Elliot  Moule ","Points":2,"GotBonus":false},{"Player":"Iain Hopwood","Points":1,"GotBonus":false},{"Player":"Otto Dobretsberger","Points":0,"GotBonus":false}],"Winner":"Elliot  Moule "},{"GameName":"Rygar","Console":"NES","CompetionDate":"4/27/2025","Scores":[{"Player":"Iain Hopwood","Points":2,"GotBonus":false},{"Player":"Elliot  Moule ","Points":1,"GotBonus":false},{"Player":"Otto Dobretsberger","Points":0,"GotBonus":false}],"Winner":"Iain Hopwood"},{"GameName":"GoldenEye","Console":"N64","CompetionDate":"4/13/2025","Scores":[{"Player":"Iain Hopwood","Points":2,"GotBonus":false},{"Player":"Elliot  Moule ","Points":1,"GotBonus":false},{"Player":"Otto Dobretsberger","Points":0,"GotBonus":false}],"Winner":"Iain Hopwood"},{"GameName":"Ninja Gaiden","Console":"NES","CompetionDate":"4/07/2025","Scores":[{"Player":"Otto Dobretsberger","Points":1,"GotBonus":false},{"Player":"Iain Hopwood","Points":0,"GotBonus":false}],"Winner":"Otto Dobretsberger"},{"GameName":"Rock n' Roll Racing","Console":"SNES","CompetionDate":"4/06/2025","Scores":[{"Player":"Otto Dobretsberger","Points":1,"GotBonus":false},{"Player":"Iain Hopwood","Points":0,"GotBonus":false}],"Winner":"Otto Dobretsberger"},{"GameName":"Super Pitfall","Console":"NES","CompetionDate":"3/31/2025","Scores":[{"Player":"Otto Dobretsberger","Points":1,"GotBonus":false},{"Player":"Iain Hopwood","Points":0,"GotBonus":false}],"Winner":"Otto Dobretsberger"}],"FinalStandings":[{"Player":"Otto Dobretsberger","TotalPoints":43,"Rank":1,"TotalWins":15,"BonusCount":5},{"Player":"Elliot  Moule ","TotalPoints":43,"Rank":1,"TotalWins":14,"BonusCount":0},{"Player":"Iain Hopwood","TotalPoints":40,"Rank":3,"TotalWins":13,"BonusCount":3}],"YearWinner":"Otto Dobretsberger","YearNumber":1},"Success":false,"IsUpdating":false,"TokenExpired":false,"FailureInformation":""}
+{
+  "EndOfYearResults": {
+    "ConsolesPlayed": [
+      {
+        "ConsoleName": "SNES",
+        "GamesPlayedCount": 15,
+        "PlayerWins": [
+          { "Player": "Elliot  Moule ", "Wins": 7 },
+          { "Player": "Iain Hopwood", "Wins": 5 },
+          { "Player": "Otto Dobretsberger", "Wins": 3 }
+        ]
+      },
+      {
+        "ConsoleName": "NES",
+        "GamesPlayedCount": 14,
+        "PlayerWins": [
+          { "Player": "Otto Dobretsberger", "Wins": 9 },
+          { "Player": "Elliot  Moule ", "Wins": 4 },
+          { "Player": "Iain Hopwood", "Wins": 1 }
+        ]
+      },
+      {
+        "ConsoleName": "N64",
+        "GamesPlayedCount": 13,
+        "PlayerWins": [
+          { "Player": "Iain Hopwood", "Wins": 7 },
+          { "Player": "Elliot  Moule ", "Wins": 3 },
+          { "Player": "Otto Dobretsberger", "Wins": 3 }
+        ]
+      }
+    ],
+    "GamesPlayed": [
+      {
+        "GameName": "Superman 64",
+        "Console": "N64",
+        "CompetionDate": "3/17/2026",
+        "Scores": [
+          { "Player": "Iain Hopwood", "Points": 2, "GotBonus": false },
+          { "Player": "Elliot  Moule ", "Points": 1, "GotBonus": false },
+          { "Player": "Otto Dobretsberger", "Points": 0, "GotBonus": false }
+        ],
+        "Winner": "Iain Hopwood"
+      },
+      {
+        "GameName": "Extreme G",
+        "Console": "N64",
+        "CompetionDate": "3/15/2026",
+        "Scores": [
+          { "Player": "Otto Dobretsberger", "Points": 2, "GotBonus": false },
+          { "Player": "Iain Hopwood", "Points": 1, "GotBonus": false },
+          { "Player": "Elliot  Moule ", "Points": 0, "GotBonus": false }
+        ],
+        "Winner": "Otto Dobretsberger"
+      },
+      {
+        "GameName": "Paperboy",
+        "Console": "NES",
+        "CompetionDate": "3/08/2026",
+        "Scores": [
+          { "Player": "Otto Dobretsberger", "Points": 2, "GotBonus": false },
+          { "Player": "Elliot  Moule ", "Points": 1, "GotBonus": false },
+          { "Player": "Iain Hopwood", "Points": 0, "GotBonus": false }
+        ],
+        "Winner": "Otto Dobretsberger"
+      },
+      {
+        "GameName": "Megaman 5",
+        "Console": "NES",
+        "CompetionDate": "3/01/2026",
+        "Scores": [
+          { "Player": "Otto Dobretsberger", "Points": 2, "GotBonus": false },
+          { "Player": "Elliot  Moule ", "Points": 1, "GotBonus": false },
+          { "Player": "Iain Hopwood", "Points": 0, "GotBonus": false }
+        ],
+        "Winner": "Otto Dobretsberger"
+      },
+      {
+        "GameName": "Rampage: World Tour",
+        "Console": "N64",
+        "CompetionDate": "2/22/2026",
+        "Scores": [
+          { "Player": "Iain Hopwood", "Points": 2, "GotBonus": false },
+          { "Player": "Otto Dobretsberger", "Points": 1, "GotBonus": false },
+          { "Player": "Elliot  Moule ", "Points": 0, "GotBonus": false }
+        ],
+        "Winner": "Iain Hopwood"
+      },
+      {
+        "GameName": "Star Wars Rogue Squadron",
+        "Console": "N64",
+        "CompetionDate": "2/15/2026",
+        "Scores": [
+          { "Player": "Elliot  Moule ", "Points": 2, "GotBonus": false },
+          { "Player": "Iain Hopwood", "Points": 1, "GotBonus": false },
+          { "Player": "Otto Dobretsberger", "Points": 0, "GotBonus": false }
+        ],
+        "Winner": "Elliot  Moule "
+      },
+      {
+        "GameName": "Pittfighter",
+        "Console": "SNES",
+        "CompetionDate": "2/08/2026",
+        "Scores": [
+          { "Player": "Elliot  Moule ", "Points": 2, "GotBonus": false },
+          { "Player": "Iain Hopwood", "Points": 1, "GotBonus": false },
+          { "Player": "Otto Dobretsberger", "Points": 0, "GotBonus": false }
+        ],
+        "Winner": "Elliot  Moule "
+      },
+      {
+        "GameName": "NBA Hangtime",
+        "Console": "N64",
+        "CompetionDate": "2/01/2026",
+        "Scores": [
+          { "Player": "Elliot  Moule ", "Points": 2, "GotBonus": false },
+          { "Player": "Otto Dobretsberger", "Points": 0, "GotBonus": false },
+          { "Player": "Iain Hopwood", "Points": 0, "GotBonus": false }
+        ],
+        "Winner": "Elliot  Moule "
+      },
+      {
+        "GameName": "The Adventures of Bayou Billy",
+        "Console": "NES",
+        "CompetionDate": "1/18/2026",
+        "Scores": [
+          { "Player": "Elliot  Moule ", "Points": 2, "GotBonus": false },
+          { "Player": "Otto Dobretsberger", "Points": 1, "GotBonus": false },
+          { "Player": "Iain Hopwood", "Points": 0, "GotBonus": false }
+        ],
+        "Winner": "Elliot  Moule "
+      },
+      {
+        "GameName": "Last Bible III",
+        "Console": "SNES",
+        "CompetionDate": "1/09/2026",
+        "Scores": [
+          { "Player": "Iain Hopwood", "Points": 2, "GotBonus": false },
+          { "Player": "Otto Dobretsberger", "Points": 1, "GotBonus": false },
+          { "Player": "Elliot  Moule ", "Points": 0, "GotBonus": false }
+        ],
+        "Winner": "Iain Hopwood"
+      },
+      {
+        "GameName": "Jackie Chan's Action Kung Fu",
+        "Console": "NES",
+        "CompetionDate": "1/06/2026",
+        "Scores": [
+          { "Player": "Elliot  Moule ", "Points": 2, "GotBonus": false },
+          { "Player": "Otto Dobretsberger", "Points": 1, "GotBonus": false },
+          { "Player": "Iain Hopwood", "Points": 0, "GotBonus": false }
+        ],
+        "Winner": "Elliot  Moule "
+      },
+      {
+        "GameName": "Cool World",
+        "Console": "SNES",
+        "CompetionDate": "1/04/2026",
+        "Scores": [
+          { "Player": "Otto Dobretsberger", "Points": 2, "GotBonus": true },
+          { "Player": "Iain Hopwood", "Points": 2, "GotBonus": true },
+          { "Player": "Elliot  Moule ", "Points": 2, "GotBonus": false }
+        ],
+        "Winner": "Elliot  Moule "
+      },
+      {
+        "GameName": "BASS Master Classic",
+        "Console": "SNES",
+        "CompetionDate": "12/30/2025",
+        "Scores": [
+          { "Player": "Otto Dobretsberger", "Points": 2, "GotBonus": false },
+          { "Player": "Iain Hopwood", "Points": 1, "GotBonus": false },
+          { "Player": "Elliot  Moule ", "Points": 0, "GotBonus": false }
+        ],
+        "Winner": "Otto Dobretsberger"
+      },
+      {
+        "GameName": "Lufia",
+        "Console": "SNES",
+        "CompetionDate": "11/28/2025",
+        "Scores": [
+          { "Player": "Iain Hopwood", "Points": 2, "GotBonus": false },
+          { "Player": "Elliot  Moule ", "Points": 1, "GotBonus": false },
+          { "Player": "Otto Dobretsberger", "Points": 0, "GotBonus": false }
+        ],
+        "Winner": "Iain Hopwood"
+      },
+      {
+        "GameName": "Super Troll Islands",
+        "Console": "SNES",
+        "CompetionDate": "11/19/2025",
+        "Scores": [
+          { "Player": "Elliot  Moule ", "Points": 2, "GotBonus": false },
+          { "Player": "Iain Hopwood", "Points": 1, "GotBonus": false },
+          { "Player": "Otto Dobretsberger", "Points": 0, "GotBonus": false }
+        ],
+        "Winner": "Elliot  Moule "
+      },
+      {
+        "GameName": "Olympic Summer Games",
+        "Console": "SNES",
+        "CompetionDate": "11/14/2025",
+        "Scores": [
+          { "Player": "Elliot  Moule ", "Points": 2, "GotBonus": false },
+          { "Player": "Otto Dobretsberger", "Points": 1, "GotBonus": false },
+          { "Player": "Iain Hopwood", "Points": 0, "GotBonus": false }
+        ],
+        "Winner": "Elliot  Moule "
+      },
+      {
+        "GameName": "Secret of Evermore",
+        "Console": "SNES",
+        "CompetionDate": "11/09/2025",
+        "Scores": [
+          { "Player": "Elliot  Moule ", "Points": 2, "GotBonus": false },
+          { "Player": "Iain Hopwood", "Points": 1, "GotBonus": false },
+          { "Player": "Otto Dobretsberger", "Points": 0, "GotBonus": false }
+        ],
+        "Winner": "Elliot  Moule "
+      },
+      {
+        "GameName": "Dragon's Lair",
+        "Console": "NES",
+        "CompetionDate": "10/31/2025",
+        "Scores": [
+          { "Player": "Otto Dobretsberger", "Points": 2, "GotBonus": false },
+          { "Player": "Elliot  Moule ", "Points": 1, "GotBonus": false },
+          { "Player": "Iain Hopwood", "Points": 0, "GotBonus": false }
+        ],
+        "Winner": "Otto Dobretsberger"
+      },
+      {
+        "GameName": "Extreme G 2",
+        "Console": "N64",
+        "CompetionDate": "10/24/2025",
+        "Scores": [
+          { "Player": "Otto Dobretsberger", "Points": 2, "GotBonus": false },
+          { "Player": "Elliot  Moule ", "Points": 1, "GotBonus": false },
+          { "Player": "Iain Hopwood", "Points": 0, "GotBonus": false }
+        ],
+        "Winner": "Otto Dobretsberger"
+      },
+      {
+        "GameName": "Super Mario Bros 3",
+        "Console": "NES",
+        "CompetionDate": "10/16/2025",
+        "Scores": [
+          { "Player": "Otto Dobretsberger", "Points": 2, "GotBonus": false },
+          { "Player": "Elliot  Moule ", "Points": 1, "GotBonus": false },
+          { "Player": "Iain Hopwood", "Points": 0, "GotBonus": false }
+        ],
+        "Winner": "Otto Dobretsberger"
+      },
+      {
+        "GameName": "Prince of Persia",
+        "Console": "SNES",
+        "CompetionDate": "10/03/2025",
+        "Scores": [
+          { "Player": "Elliot  Moule ", "Points": 2, "GotBonus": false },
+          { "Player": "Otto Dobretsberger", "Points": 1, "GotBonus": false },
+          { "Player": "Iain Hopwood", "Points": 0, "GotBonus": false }
+        ],
+        "Winner": "Elliot  Moule "
+      },
+      {
+        "GameName": "Star Wars Shadows of the Empire",
+        "Console": "N64",
+        "CompetionDate": "9/14/2025",
+        "Scores": [
+          { "Player": "Iain Hopwood", "Points": 2, "GotBonus": false },
+          { "Player": "Elliot  Moule ", "Points": 1, "GotBonus": false },
+          { "Player": "Otto Dobretsberger", "Points": 0, "GotBonus": false }
+        ],
+        "Winner": "Iain Hopwood"
+      },
+      {
+        "GameName": "Killer Instinict",
+        "Console": "SNES",
+        "CompetionDate": "8/31/2025",
+        "Scores": [
+          { "Player": "Otto Dobretsberger", "Points": 3, "GotBonus": true },
+          { "Player": "Iain Hopwood", "Points": 1, "GotBonus": false },
+          { "Player": "Elliot  Moule ", "Points": 0, "GotBonus": false }
+        ],
+        "Winner": "Otto Dobretsberger"
+      },
+      {
+        "GameName": "Fester's Quest",
+        "Console": "NES",
+        "CompetionDate": "8/24/2025",
+        "Scores": [
+          { "Player": "Elliot  Moule ", "Points": 2, "GotBonus": false },
+          { "Player": "Iain Hopwood", "Points": 1, "GotBonus": false },
+          { "Player": "Otto Dobretsberger", "Points": 0, "GotBonus": false }
+        ],
+        "Winner": "Elliot  Moule "
+      },
+      {
+        "GameName": "Jaws",
+        "Console": "NES",
+        "CompetionDate": "8/17/2025",
+        "Scores": [
+          { "Player": "Elliot  Moule ", "Points": 2, "GotBonus": false },
+          { "Player": "Otto Dobretsberger", "Points": 1, "GotBonus": false },
+          { "Player": "Iain Hopwood", "Points": 0, "GotBonus": false }
+        ],
+        "Winner": "Elliot  Moule "
+      },
+      {
+        "GameName": "Cruis'n World",
+        "Console": "N64",
+        "CompetionDate": "8/17/2025",
+        "Scores": [
+          { "Player": "Iain Hopwood", "Points": 3, "GotBonus": true },
+          { "Player": "Elliot  Moule ", "Points": 1, "GotBonus": false },
+          { "Player": "Otto Dobretsberger", "Points": 0, "GotBonus": false }
+        ],
+        "Winner": "Iain Hopwood"
+      },
+      {
+        "GameName": "John Romero's Daikatana",
+        "Console": "N64",
+        "CompetionDate": "7/27/2025",
+        "Scores": [
+          { "Player": "Otto Dobretsberger", "Points": 2, "GotBonus": false },
+          { "Player": "Elliot  Moule ", "Points": 1, "GotBonus": false },
+          { "Player": "Iain Hopwood", "Points": 0, "GotBonus": false }
+        ],
+        "Winner": "Otto Dobretsberger"
+      },
+      {
+        "GameName": "Starfox 64",
+        "Console": "N64",
+        "CompetionDate": "7/20/2025",
+        "Scores": [
+          { "Player": "Iain Hopwood", "Points": 3, "GotBonus": true },
+          { "Player": "Otto Dobretsberger", "Points": 2, "GotBonus": true },
+          { "Player": "Elliot  Moule ", "Points": 0, "GotBonus": false }
+        ],
+        "Winner": "Iain Hopwood"
+      },
+      {
+        "GameName": "Metal Marines",
+        "Console": "SNES",
+        "CompetionDate": "6/29/2025",
+        "Scores": [
+          { "Player": "Iain Hopwood", "Points": 2, "GotBonus": false },
+          { "Player": "Elliot  Moule ", "Points": 1, "GotBonus": false },
+          { "Player": "Otto Dobretsberger", "Points": 0, "GotBonus": false }
+        ],
+        "Winner": "Iain Hopwood"
+      },
+      {
+        "GameName": "Chip and Dale II",
+        "Console": "NES",
+        "CompetionDate": "6/22/2025",
+        "Scores": [
+          { "Player": "Otto Dobretsberger", "Points": 2, "GotBonus": true },
+          { "Player": "Iain Hopwood", "Points": 0, "GotBonus": false }
+        ],
+        "Winner": "Otto Dobretsberger"
+      },
+      {
+        "GameName": "Carmaggedon 64",
+        "Console": "N64",
+        "CompetionDate": "6/22/2025",
+        "Scores": [
+          { "Player": "Iain Hopwood", "Points": 2, "GotBonus": false },
+          { "Player": "Otto Dobretsberger", "Points": 1, "GotBonus": false },
+          { "Player": "Elliot  Moule ", "Points": 0, "GotBonus": false }
+        ],
+        "Winner": "Iain Hopwood"
+      },
+      {
+        "GameName": "3 Ninjas Kick Back",
+        "Console": "SNES",
+        "CompetionDate": "6/01/2025",
+        "Scores": [
+          { "Player": "Iain Hopwood", "Points": 2, "GotBonus": false },
+          { "Player": "Otto Dobretsberger", "Points": 1, "GotBonus": false },
+          { "Player": "Elliot  Moule ", "Points": 0, "GotBonus": false }
+        ],
+        "Winner": "Iain Hopwood"
+      },
+      {
+        "GameName": "Star Wars",
+        "Console": "NES",
+        "CompetionDate": "5/25/2025",
+        "Scores": [
+          { "Player": "Otto Dobretsberger", "Points": 2, "GotBonus": false },
+          { "Player": "Elliot  Moule ", "Points": 1, "GotBonus": false },
+          { "Player": "Iain Hopwood", "Points": 0, "GotBonus": false }
+        ],
+        "Winner": "Otto Dobretsberger"
+      },
+      {
+        "GameName": "Home Alone",
+        "Console": "SNES",
+        "CompetionDate": "5/18/2025",
+        "Scores": [
+          { "Player": "Elliot  Moule ", "Points": 2, "GotBonus": false },
+          { "Player": "Otto Dobretsberger", "Points": 1, "GotBonus": false },
+          { "Player": "Iain Hopwood", "Points": 0, "GotBonus": false }
+        ],
+        "Winner": "Elliot  Moule "
+      },
+      {
+        "GameName": "Zelda A Link to The Past",
+        "Console": "SNES",
+        "CompetionDate": "5/18/2025",
+        "Scores": [
+          { "Player": "Iain Hopwood", "Points": 2, "GotBonus": false },
+          { "Player": "Elliot  Moule ", "Points": 1, "GotBonus": false },
+          { "Player": "Otto Dobretsberger", "Points": 0, "GotBonus": false }
+        ],
+        "Winner": "Iain Hopwood"
+      },
+      {
+        "GameName": "DuckTales",
+        "Console": "NES",
+        "CompetionDate": "5/04/2025",
+        "Scores": [
+          { "Player": "Otto Dobretsberger", "Points": 3, "GotBonus": true },
+          { "Player": "Iain Hopwood", "Points": 1, "GotBonus": false },
+          { "Player": "Elliot  Moule ", "Points": 0, "GotBonus": false }
+        ],
+        "Winner": "Otto Dobretsberger"
+      },
+      {
+        "GameName": "Doom 64",
+        "Console": "N64",
+        "CompetionDate": "4/27/2025",
+        "Scores": [
+          { "Player": "Elliot  Moule ", "Points": 2, "GotBonus": false },
+          { "Player": "Iain Hopwood", "Points": 1, "GotBonus": false },
+          { "Player": "Otto Dobretsberger", "Points": 0, "GotBonus": false }
+        ],
+        "Winner": "Elliot  Moule "
+      },
+      {
+        "GameName": "Rygar",
+        "Console": "NES",
+        "CompetionDate": "4/27/2025",
+        "Scores": [
+          { "Player": "Iain Hopwood", "Points": 2, "GotBonus": false },
+          { "Player": "Elliot  Moule ", "Points": 1, "GotBonus": false },
+          { "Player": "Otto Dobretsberger", "Points": 0, "GotBonus": false }
+        ],
+        "Winner": "Iain Hopwood"
+      },
+      {
+        "GameName": "GoldenEye",
+        "Console": "N64",
+        "CompetionDate": "4/13/2025",
+        "Scores": [
+          { "Player": "Iain Hopwood", "Points": 2, "GotBonus": false },
+          { "Player": "Elliot  Moule ", "Points": 1, "GotBonus": false },
+          { "Player": "Otto Dobretsberger", "Points": 0, "GotBonus": false }
+        ],
+        "Winner": "Iain Hopwood"
+      },
+      {
+        "GameName": "Ninja Gaiden",
+        "Console": "NES",
+        "CompetionDate": "4/07/2025",
+        "Scores": [
+          { "Player": "Otto Dobretsberger", "Points": 1, "GotBonus": false },
+          { "Player": "Iain Hopwood", "Points": 0, "GotBonus": false }
+        ],
+        "Winner": "Otto Dobretsberger"
+      },
+      {
+        "GameName": "Rock n' Roll Racing",
+        "Console": "SNES",
+        "CompetionDate": "4/06/2025",
+        "Scores": [
+          { "Player": "Otto Dobretsberger", "Points": 1, "GotBonus": false },
+          { "Player": "Iain Hopwood", "Points": 0, "GotBonus": false }
+        ],
+        "Winner": "Otto Dobretsberger"
+      },
+      {
+        "GameName": "Super Pitfall",
+        "Console": "NES",
+        "CompetionDate": "3/31/2025",
+        "Scores": [
+          { "Player": "Otto Dobretsberger", "Points": 1, "GotBonus": false },
+          { "Player": "Iain Hopwood", "Points": 0, "GotBonus": false }
+        ],
+        "Winner": "Otto Dobretsberger"
+      }
+    ],
+    "FinalStandings": [
+      {
+        "Player": "Otto Dobretsberger",
+        "TotalPoints": 43,
+        "Rank": 1,
+        "TotalWins": 15,
+        "BonusCount": 5
+      },
+      {
+        "Player": "Elliot  Moule ",
+        "TotalPoints": 43,
+        "Rank": 1,
+        "TotalWins": 14,
+        "BonusCount": 0
+      },
+      { "Player": "Iain Hopwood", "TotalPoints": 40, "Rank": 3, "TotalWins": 13, "BonusCount": 3 }
+    ],
+    "YearWinner": "Otto Dobretsberger",
+    "YearNumber": 1
+  },
+  "Success": false,
+  "IsUpdating": false,
+  "TokenExpired": false,
+  "FailureInformation": ""
+}

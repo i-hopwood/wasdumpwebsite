@@ -1,15 +1,15 @@
 {
   "Competition": {
-    "CompetitionId": "9b1bc826-adab-42a5-8cd8-33fac6195f77",
-    "GameId": "d46592ea-cf5b-4d9b-b898-a38db71dc894",
-    "SystemId": "f2e0e737-e834-4a2c-94c9-9689adbedd60",
+    "CompetitionId": "0910cbd7-d5ab-4231-9013-829882c2b173",
+    "GameId": "4d3a228f-2971-425a-84f4-4b5058ff9866",
+    "SystemId": "924fc32e-5c1c-4fa6-964b-65ae6e711b39",
     "Active": true,
     "PlayerCount": 3,
-    "CompetionDate": "2026-03-29T21:33:10.793",
-    "CompetionDateString": "04/05/2026",
-    "GameName": "Super Star Wars",
-    "System": "SNES",
-    "Goal": "Most Progress"
+    "CompetionDate": "2026-04-13T21:42:05.07",
+    "CompetionDateString": "04/13/2026",
+    "GameName": "Mario Kart 64",
+    "System": "N64",
+    "Goal": "Most Gold 150cc"
   },
   "Success": false,
   "IsUpdating": false,

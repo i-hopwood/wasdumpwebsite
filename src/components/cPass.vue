@@ -26,6 +26,7 @@
           <h4 class="text-light">{{ passData.lastSessionName }}</h4>
         </div>
 
+        <!--
         <div class="card bg-black bg-opacity-25 border-secondary">
           <div class="card-body position-relative">
             <i class="bi bi-quote position-absolute top-0 start-0 ms-2 mt-1 fs-1 text-muted opacity-25"></i>
@@ -33,6 +34,7 @@
             <p class="card-text fst-italic ms-4 lead">{{ passData.lastHandOffReport }}</p>
           </div>
         </div>
+        -->
       </div>
     </div>
   </div>
