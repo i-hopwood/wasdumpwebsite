@@ -1,18 +1,1 @@
-{
-  "Competition": {
-    "CompetitionId": "0910cbd7-d5ab-4231-9013-829882c2b173",
-    "GameId": "4d3a228f-2971-425a-84f4-4b5058ff9866",
-    "SystemId": "924fc32e-5c1c-4fa6-964b-65ae6e711b39",
-    "Active": true,
-    "PlayerCount": 3,
-    "CompetionDate": "2026-04-13T21:42:05.07",
-    "CompetionDateString": "04/13/2026",
-    "GameName": "Mario Kart 64",
-    "System": "N64",
-    "Goal": "Most Gold 150cc"
-  },
-  "Success": false,
-  "IsUpdating": false,
-  "TokenExpired": false,
-  "FailureInformation": ""
-}
+{"Competition":{"CompetitionId":"9b789216-874a-4577-849e-6416a9130668","GameId":"f1d50b11-2cc2-469e-acd6-cf42639d76cc","SystemId":"924fc32e-5c1c-4fa6-964b-65ae6e711b39","Active":true,"PlayerCount":3,"CompetionDate":"2026-04-19T21:03:55.963","CompetionDateString":"04/19/2026","GameName":"Xena","System":"N64","Goal":"Most Kills I guess "},"Success":false,"IsUpdating":false,"TokenExpired":false,"FailureInformation":""}
