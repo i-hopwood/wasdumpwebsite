@@ -3,7 +3,10 @@
     "gut",
     "minthara",
     "flind",
-    "dror-ragzlin"
+    "dror-ragzlin",
+    "owlbear",
+    "auntie-ethel",
+    "nere"
   ],
   "missed": [
     "zhalk",
@@ -33,6 +36,18 @@
     "kagha": {
       "player": "",
       "date": "2026-05-17"
+    },
+    "owlbear": {
+      "player": "Otto",
+      "date": "2026-05-30"
+    },
+    "auntie-ethel": {
+      "player": "Otto",
+      "date": "2026-05-30"
+    },
+    "nere": {
+      "player": "Iain",
+      "date": "2026-05-28"
     }
   }
 }
