@@ -6,7 +6,8 @@
     "dror-ragzlin",
     "owlbear",
     "auntie-ethel",
-    "nere"
+    "nere",
+    "grym"
   ],
   "missed": [
     "zhalk",
@@ -48,6 +49,10 @@
     "nere": {
       "player": "Iain",
       "date": "2026-05-28"
+    },
+    "grym": {
+      "player": "Elliot",
+      "date": "2026-06-01"
     }
   }
 }
