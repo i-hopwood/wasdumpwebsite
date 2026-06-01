@@ -10,8 +10,7 @@
     "grym"
   ],
   "missed": [
-    "zhalk",
-    "kagha"
+    "zhalk"
   ],
   "details": {
     "zhalk": {
@@ -33,10 +32,6 @@
     "dror-ragzlin": {
       "player": "Otto",
       "date": "2026-05-16"
-    },
-    "kagha": {
-      "player": "",
-      "date": "2026-05-17"
     },
     "owlbear": {
       "player": "Otto",

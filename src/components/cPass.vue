@@ -31,7 +31,9 @@
 
         <div class="recent-kills">
           <h5 class="text-uppercase text-muted small mb-3">
-            <i class="bi bi-skull me-2"></i>Recent Kills
+            <RouterLink to="/boss-tracker" class="recent-kills-link">
+              <i class="bi bi-skull me-2"></i>Recent Kills
+            </RouterLink>
           </h5>
 
           <!-- Loading state -->
@@ -234,6 +236,16 @@ export default {
   font-size: 0.65rem;
   color: #6c757d;
   margin-top: 0.1rem;
+}
+
+.recent-kills-link {
+  color: inherit;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.recent-kills-link:hover {
+  color: #e8cc7a;
 }
 
 @media (max-width: 576px) {
