@@ -7,7 +7,11 @@
     "owlbear",
     "auntie-ethel",
     "nere",
-    "grym"
+    "grym",
+    "spectator",
+    "gekh-coal",
+    "glut",
+    "bulette"
   ],
   "missed": [
     "zhalk"
@@ -48,6 +52,22 @@
     "grym": {
       "player": "Elliot",
       "date": "2026-06-01"
+    },
+    "spectator": {
+      "player": "Otto",
+      "date": "2026-06-06"
+    },
+    "gekh-coal": {
+      "player": "Iain",
+      "date": "2026-06-05"
+    },
+    "glut": {
+      "player": "Iain",
+      "date": "2026-06-05"
+    },
+    "bulette": {
+      "player": "Iain",
+      "date": "2026-06-05"
     }
   }
 }
