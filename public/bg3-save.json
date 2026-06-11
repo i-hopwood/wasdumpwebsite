@@ -11,7 +11,9 @@
     "spectator",
     "gekh-coal",
     "glut",
-    "bulette"
+    "bulette",
+    "bernard",
+    "phase-spider"
   ],
   "missed": [
     "zhalk"
@@ -67,6 +69,14 @@
     },
     "bulette": {
       "player": "Iain",
+      "date": "2026-06-05"
+    },
+    "bernard": {
+      "player": "Elliot",
+      "date": "2026-06-11"
+    },
+    "phase-spider": {
+      "player": "Otto",
       "date": "2026-06-05"
     }
   }
